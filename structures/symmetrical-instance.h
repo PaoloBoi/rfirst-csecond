@@ -1,10 +1,83 @@
 #ifndef SYMMETRICALINSTANCE_H
 #define SYMMETRICALINSTANCE_H
 
-class SymmetricalInstance
-{
+#include <iostream>
+
+#include <QList>
+
+#include <structures/geom-node.h>
+
+using namespace std;
+
+/**
+ * @class SymmetricalInstance
+ *
+ * @brief Questa classe fornisce una semplice implementazione di una istanza simmetrica del problema.
+ *
+ * Include le variabili per la memorizzazione dei dati globali, delle informazioni sul punto di deposito e una lista per la gestione dei nodi.
+ * Il singolo nodo è gestito attraverso la struttura @link GeomNode @endlink.
+ *
+ * @author Paolo Boi { paoloboi87@gmail.com }
+ */
+
+class SymmetricalInstance {
+
 public:
+    /** @brief Costruttore predefinito. */
     SymmetricalInstance();
+
+    /** @brief Rende il numero dei nodi nella rete. */
+    int get_customers_number();
+
+    /** @brief Imposta a @em value il numero dei nodi nella rete. */
+    void set_customers_number(int);
+
+    /** @brief Rende la capacità massima del veicolo. */
+    int get_vehicle_capacity();
+
+    /** @brief Imposta a @em value la capacità massima del veicolo. */
+    void set_vehicle_capacity(int);
+
+    /** @brief Rende il tempo massimo di percorrimento per la route. */
+    int get_max_route_time();
+
+    /** @brief Imposta a @em value la capacità massima del veicolo. */
+    void set_max_route_time(int);
+
+    /** @brief Rende il (...). */
+    int get_drop_time();
+
+    /** @brief Imposta a @em value (...). */
+    void set_drop_time(int);
+
+    /** @brief Rende la coordinata @em x del deposito. */
+    int get_depot_x_coord();
+
+    /** @brief Imposta a @em value la coordinata @em x del deposito. */
+    void set_depot_x_coord(int);
+
+    /** @brief Rende la coordinata @em y del deposito. */
+    int get_depot_y_coord();
+
+    /** @brief Imposta a @em value la coordinata @em y del deposito. */
+    void set_depot_y_coord(int);
+
+    /** @brief Aggiunge il nodo @em node all'istanza. */
+    void add_node(GeomNode);
+
+    /** @brief Stampa a video i dati contenuti nell'istanza. */
+    void print_data();
+
+private:
+    int customers_number; /**< Numero dei nodi nell'istanza */
+    int vehicle_capacity; /**< Capacità del mezzo di trasporto */
+    int max_route_time;   /**< Tempo massimo di attività del mezzo */
+    int drop_time;
+
+    int depot_x_coord;    /**< Coordinate del punto di deposito */
+    int depot_y_coord;
+
+    QList<GeomNode> nodes_list; /**< Nodi della rete (non comprende il deposito) */
 };
 
 #endif // SYMMETRICALINSTANCE_H

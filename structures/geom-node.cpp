@@ -1,5 +1,9 @@
-#include "geom_node.h"
+#include "geom-node.h"
 
-Geom_Node::Geom_Node()
-{
-}
+int GeomNode::get_x_coord() { return x_coord; }
+
+int GeomNode::get_y_coord() { return y_coord; }
+
+int GeomNode::get_capacity() { return capacity; }
+
+void GeomNode::print_data() { cout << x_coord << " " << y_coord << " " << capacity << endl; }
