@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QPair>
+#include <QVector>
 #include <structures/geom-node.h>
 
 using namespace std;
@@ -21,18 +22,23 @@ class Plane {
 
 public:
 
+    Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceType);
+
     double distance (int nodeA, int nodeB);
 
-    QPair<int, int> closest (int node);     // Polimorfismo: primo approccio
-    QPair<bool, QPair<int, int>> closest (int node, int filled);    // Polimorfismo: secondo approccio
+    QPair<int, double> closest (int node);     // Overloading: primo approccio
+    QPair<bool, QPair<int, double> > closest (int node, int filled);    // Overloading: secondo approccio
 
     GeomNode get_node(int);
 
 
 private:
-    GeomNode nodes[];
-    double distances[][];
+    QVector<GeomNode> nodes;
+    double **distances;
     QList<int> activeNodes;
+    bool symmetricInstance;
+
+    double squared_distance(int nodeA, int nodeB);
 };
 
 #endif // PLANE_H

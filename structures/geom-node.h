@@ -21,9 +21,9 @@ public:
     //Geom_Node();
     GeomNode(int x, int y, int c) : x_coord(x), y_coord(y), capacity(c) {}
 
-    int get_x_coord();
-    int get_y_coord();
-    int get_capacity();
+    int get_x_coord() const;
+    int get_y_coord() const;
+    int get_capacity() const;
 
     void print_data();
 
