@@ -8,7 +8,7 @@ using namespace std;
 /**
  * @class GeomNode
  *
- * @brief Questa classe fornisce una rappresentazione geometrica dei nodi.
+ * @brief Questa classe fornisce la rappresentazione geometrica dei nodi.
  *
  * Include le variabili per la memorizzazione delle coordinate cartesiane e della capacità.
  *
@@ -19,7 +19,7 @@ class GeomNode {
 
 public:
     //Geom_Node();
-    GeomNode(int x, int y, int c) : x_coord(x), y_coord(y), capacity(c) {}
+    GeomNode(int x, int y, int c, int i) : x_coord(x), y_coord(y), capacity(c), id(i) {}
 
     int get_x_coord();
     int get_y_coord();
@@ -31,6 +31,7 @@ private:
     int x_coord;
     int y_coord;
     int capacity;
+    int id;
 };
 
 #endif // GEOM_NODE_H

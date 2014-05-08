@@ -6,7 +6,7 @@
 #include <iostream>
 #include <file/file-reader.h>
 
-const char * filePath = "../rfirst-csecond/data/vrpnc1.txt";
+const char * filePath = "../rfirst-csecond/data/vrpnc1-.txt";
 
 using namespace std;
 

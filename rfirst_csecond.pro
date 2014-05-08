@@ -7,7 +7,7 @@ QT += core
 SOURCES += main.cpp \
     file/file-reader.cpp \
     structures/symmetrical-instance.cpp \
-    structures/geom-node.cpp
+    structures/geom-node.cpp \
 
 HEADERS += \
     file/file-reader.h \

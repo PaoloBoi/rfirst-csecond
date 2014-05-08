@@ -6,4 +6,4 @@ int GeomNode::get_y_coord() { return y_coord; }
 
 int GeomNode::get_capacity() { return capacity; }
 
-void GeomNode::print_data() { cout << x_coord << " " << y_coord << " " << capacity << endl; }
+void GeomNode::print_data() { cout << "node " << id << ": " << x_coord << " " << y_coord << " " << capacity << endl; }
