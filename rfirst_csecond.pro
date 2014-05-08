@@ -8,9 +8,13 @@ SOURCES += main.cpp \
     file/file-reader.cpp \
     structures/symmetrical-instance.cpp \
     structures/geom-node.cpp \
+    plane.cpp \
+    worker.cpp
 
 HEADERS += \
     file/file-reader.h \
     structures/symmetrical-instance.h \
-    structures/geom-node.h
+    structures/geom-node.h \
+    plane.h \
+    worker.h
 
