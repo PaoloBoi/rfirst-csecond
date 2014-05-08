@@ -12,5 +12,7 @@ SOURCES += main.cpp \
 HEADERS += \
     file/file-reader.h \
     structures/symmetrical-instance.h \
-    structures/geom-node.h
+    structures/geom-node.h \
+    plane.h \
+    worker.h
 
