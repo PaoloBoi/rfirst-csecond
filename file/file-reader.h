@@ -7,7 +7,7 @@
 //#include <cstring>
 //#include <stdio.h>
 
-#include <structures/symmetrical-instance.h>
+#include <structures/instance.h>
 #include <structures/geom-node.h>
 #include <plane.h>
 

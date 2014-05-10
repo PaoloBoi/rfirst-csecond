@@ -1,4 +1,4 @@
-#include "symmetrical-instance.h"
+#include "instance.h"
 
 Instance::Instance() { }
 
