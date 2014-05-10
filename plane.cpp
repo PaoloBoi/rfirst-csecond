@@ -1,6 +1,8 @@
 #include <plane.h>
 #include <math.h>
 
+Plane::Plane() {}
+
 /**
  * @brief Costruttore
  *
@@ -107,6 +109,11 @@ GeomNode Plane::get_node(int whichNode){
         return this->nodes.at(whichNode);
     else {
         qCritical("Richiesto un nodo inesistente! %d", whichNode);
-        return GeomNode(-1, -1, -1);    // Trovare un altro modo che non implichi eccezioni e non sia ambiguo.
+        return GeomNode(-1, -1, -1, -1);    // Trovare un altro modo che non implichi eccezioni e non sia ambiguo.
     }
+}
+
+void Plane::print_data() {
+
+    for(int i = 0; i < nodes.size(); i++) { nodes[i].print_data(); }
 }

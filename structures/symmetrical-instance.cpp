@@ -1,39 +1,52 @@
 #include "symmetrical-instance.h"
 
-SymmetricalInstance::SymmetricalInstance() { }
+Instance::Instance() { }
 
-int SymmetricalInstance::get_customers_number() { return customers_number; }
+int Instance::get_customers_number() { return customers_number; }
 
-void SymmetricalInstance::set_customers_number(int value) { customers_number = value; }
+void Instance::set_customers_number(int value) { customers_number = value; }
 
-int SymmetricalInstance::get_vehicle_capacity() { return vehicle_capacity; }
+int Instance::get_vehicle_capacity() { return vehicle_capacity; }
 
-void SymmetricalInstance::set_vehicle_capacity(int value) { vehicle_capacity = value; }
+void Instance::set_vehicle_capacity(int value) { vehicle_capacity = value; }
 
-int SymmetricalInstance::get_max_route_time() { return max_route_time; }
+int Instance::get_max_route_time() { return max_route_time; }
 
-void SymmetricalInstance::set_max_route_time(int value) { max_route_time = value; }
+void Instance::set_max_route_time(int value) { max_route_time = value; }
 
-int SymmetricalInstance::get_drop_time() { return drop_time; }
+int Instance::get_drop_time() { return drop_time; }
 
-void SymmetricalInstance::set_drop_time(int value) { drop_time = value; }
+void Instance::set_drop_time(int value) { drop_time = value; }
 
-int SymmetricalInstance::get_depot_x_coord() { return depot_x_coord; }
+//int SymmetricalInstance::get_depot_x_coord() { return depot_x_coord; }
 
-void SymmetricalInstance::set_depot_x_coord(int value) { depot_x_coord = value; }
+//void SymmetricalInstance::set_depot_x_coord(int value) { depot_x_coord = value; }
 
-int SymmetricalInstance::get_depot_y_coord() { return depot_y_coord; }
+//int SymmetricalInstance::get_depot_y_coord() { return depot_y_coord; }
 
-void SymmetricalInstance::set_depot_y_coord(int value) { depot_y_coord = value; }
+//void SymmetricalInstance::set_depot_y_coord(int value) { depot_y_coord = value; }
 
-/** Il nodo @em node è un'istanza della classe @link GeomNode @endlink. */
-void SymmetricalInstance::add_node(GeomNode node) { nodes_list.append(node); }
+int Instance::get_depot_id() { return depot_id; }
 
-void SymmetricalInstance::print_data() {
+void Instance::set_depot_id(int value) { depot_id = value; }
 
-    cout << customers_number << " " << vehicle_capacity << " " << max_route_time << " " << drop_time << endl;
+/**
+ * I dati in input corrispondono ai dati necessari all'inizializzazione di una nuova istanza di @link Plane @endlink.
+ *
+ * @param readNodes I nodi letti dal file.
+ * @param readDistances La matrice delle distanze (istanza asimmetrica).
+ * @param instanceType Il tipo di istanza (TRUE se simmetrica, FALSE se assimmetrica).
+ */
+void Instance::init_plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceType) {
+    plane = Plane(readNodes, readDistances, instanceType);
+}
 
-    cout << depot_x_coord << " " << depot_y_coord << endl;
+void Instance::print_data() {
 
-    for(int i = 0; i < nodes_list.size(); i++) { nodes_list[i].print_data(); }
+    cout << "Nodi domanda: " << customers_number << endl;
+    cout << "Capacità del veicolo: " << vehicle_capacity << endl;
+    cout << "Tempo max: " << max_route_time << endl;
+    cout << "Soglia di stop: " << drop_time << endl;
+
+    plane.print_data();
 }

@@ -1,11 +1,13 @@
-#ifndef SYMMETRICALINSTANCE_H
-#define SYMMETRICALINSTANCE_H
+#ifndef INSTANCE_H
+#define INSTANCE_H
 
 #include <iostream>
 
 #include <QList>
 
 #include <structures/geom-node.h>
+
+#include <plane.h>
 
 using namespace std;
 
@@ -20,11 +22,11 @@ using namespace std;
  * @author Paolo Boi { paoloboi87@gmail.com }
  */
 
-class SymmetricalInstance {
+class Instance {
 
 public:
     /** @brief Costruttore predefinito. */
-    SymmetricalInstance();
+    Instance();
 
     /** @brief Rende il numero dei nodi nella rete. */
     int get_customers_number();
@@ -51,33 +53,45 @@ public:
     void set_drop_time(int);
 
     /** @brief Rende la coordinata @em x del deposito. */
-    int get_depot_x_coord();
+    //int get_depot_x_coord();
 
     /** @brief Imposta a @em value la coordinata @em x del deposito. */
-    void set_depot_x_coord(int);
+    //void set_depot_x_coord(int);
 
     /** @brief Rende la coordinata @em y del deposito. */
-    int get_depot_y_coord();
+    //int get_depot_y_coord();
 
     /** @brief Imposta a @em value la coordinata @em y del deposito. */
-    void set_depot_y_coord(int);
+    //void set_depot_y_coord(int);
 
     /** @brief Aggiunge il nodo @em node all'istanza. */
-    void add_node(GeomNode);
+    //void add_node(GeomNode);
+
+    /** @brief Rende l'indice del deposito, all'interno della lista dei nodi. */
+    int get_depot_id();
+
+    /** @brief Imposta a @em value l'indice del deposito. */
+    void set_depot_id(int value);
+
+    /** @brief Inizializza il piano che contiene i punti della rete. */
+    void init_plane(QVector<GeomNode>, double **, bool);
 
     /** @brief Stampa a video i dati contenuti nell'istanza. */
     void print_data();
 
 private:
-    int customers_number; /**< Numero dei nodi nell'istanza */
+    int customers_number; /**< Numero dei nodi-domanda nell'istanza */
     int vehicle_capacity; /**< Capacità del mezzo di trasporto */
     int max_route_time;   /**< Tempo massimo di attività del mezzo */
     int drop_time;
 
-    int depot_x_coord;    /**< Coordinate del punto di deposito */
-    int depot_y_coord;
+    //int depot_x_coord;  /**< Coordinate del punto di deposito. */
+    //int depot_y_coord;
+    int depot_id;
 
-    QList<GeomNode> nodes_list; /**< Nodi della rete (non comprende il deposito) */
+    Plane plane;    /**< Variabile che contiene la rappresentazione dei nodi della rete nel piano. */
+
+    //QList<GeomNode> nodes_list; /**< Nodi della rete (non comprende il deposito) */
 };
 
-#endif // SYMMETRICALINSTANCE_H
+#endif // INSTANCE_H

@@ -17,4 +17,3 @@ HEADERS += \
     structures/geom-node.h \
     plane.h \
     worker.h
-

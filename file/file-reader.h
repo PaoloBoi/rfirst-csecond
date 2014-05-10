@@ -4,9 +4,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+//#include <cstring>
+//#include <stdio.h>
 
 #include <structures/symmetrical-instance.h>
 #include <structures/geom-node.h>
+#include <plane.h>
 
 using namespace std;
 
@@ -27,14 +30,14 @@ public:
     /** @brief Costruttore principale della classe. */
     File_Reader(string f_path);
 
-    /** @brief Avvia la lettura dal file. */
-    void read_file();
+    /** @brief Lancia la lettura del file. */
+    void read_file(bool);
 
     /** @brief Stampa i dati estratti a video. */
     void print_data();
 
     /** @brief Restituisce l'istanza estrapolata dal file. */
-    SymmetricalInstance get_instance();
+    Instance get_instance();
 
 private:
 
@@ -47,10 +50,17 @@ private:
     /** @brief Chiude il file. */
     bool close_file();
 
+    /** @brief Avvia la lettura dal file, istanza simmetrica. */
+    void read_symm_file();
+
+    /** @brief Avvia la lettura dal file, istanza asimmetrica. */
+    void read_asymm_file();
+
     string file_path;
     ifstream in_file;
 
-    SymmetricalInstance symm_instance;
+    Instance instance;
+    //Plane thePlane;
 };
 
 #endif // FILEREADER_H
