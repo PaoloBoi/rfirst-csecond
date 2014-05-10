@@ -1,4 +1,4 @@
-#include <worker.h>
+#include "worker.h"
 #include <math.h>
 
 /**
@@ -6,12 +6,14 @@
  *
  * Istanzia l'oggetto Plane, che rappresenta la distribuzione dei nodi nello spazio.
  *
- * @author Diego Marcia { gpimple@gmail.com }
+ * @author Paolo Boi { paoloboi87@gmail.com }
  */
-Worker::Worker(QVector<GeomNode> readNodes, double **readDistances, bool instanceType, int kParameter) : instancePlane(readNodes, readDistances, instanceType){
+Worker::Worker(Plane plane, int kParameter) {
 
+    this->instancePlane = plane;
     this->pathLength = 0;
     this->maxCapacity = kParameter;
+
 }
 
 /**
@@ -21,7 +23,9 @@ Worker::Worker(QVector<GeomNode> readNodes, double **readDistances, bool instanc
  *
  * @author Diego Marcia { gpimple@gmail.com }
  */
-QLinkedList<QLinkedList<int> > Worker::work(){
+QPair<double, QLinkedList<QLinkedList<int> > > Worker::work() {
+
+    qDebug("Work iniziato...");
 
     int lastNode = 0;
     QPair<int, double> accum;
@@ -50,7 +54,9 @@ QLinkedList<QLinkedList<int> > Worker::work(){
         startingNode = tempSubroute.first;
     }
 
-    return this->subRoutes;
+    qDebug("Work terminato...");
+
+    return qMakePair(this->pathLength, this->subRoutes);
 }
 
 

@@ -22,6 +22,8 @@ class Plane {
 
 public:
 
+    Plane() {}
+
     Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceType);
 
     QPair<int, double> closest (int node);     // Overloading: primo approccio
@@ -31,6 +33,8 @@ public:
 
     GeomNode get_node(int);
     int get_nodes_number();
+
+    void print_data();
 
 
 private:

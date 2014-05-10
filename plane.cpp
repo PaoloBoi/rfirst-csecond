@@ -123,3 +123,11 @@ GeomNode Plane::get_node(int whichNode){
 int Plane::get_nodes_number(){
     return this->nodes.size();
 }
+
+void Plane::print_data() {
+
+    for(int i = 0; i < nodes.size(); i++) {
+        cout << "Nodo " << i << ": " << nodes.at(i).get_x_coord() << " " << nodes.at(i).get_y_coord() << " " << nodes.at(i).get_capacity() << endl;
+    }
+
+}

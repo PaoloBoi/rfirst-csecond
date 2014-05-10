@@ -18,14 +18,6 @@ int Instance::get_drop_time() { return drop_time; }
 
 void Instance::set_drop_time(int value) { drop_time = value; }
 
-/*int SymmetricalInstance::get_depot_x_coord() { return depot_x_coord; }
-
-//void SymmetricalInstance::set_depot_x_coord(int value) { depot_x_coord = value; }
-
-//int SymmetricalInstance::get_depot_y_coord() { return depot_y_coord; }
-
-//void SymmetricalInstance::set_depot_y_coord(int value) { depot_y_coord = value; }*/
-
 int Instance::get_depot_id() { return depot_id; }
 
 void Instance::set_depot_id(int value) { depot_id = value; }
@@ -40,6 +32,8 @@ void Instance::set_depot_id(int value) { depot_id = value; }
 void Instance::init_plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceType) {
     plane = Plane(readNodes, readDistances, instanceType);
 }
+
+Plane Instance::get_plane() { return plane; }
 
 void Instance::print_data() {
 

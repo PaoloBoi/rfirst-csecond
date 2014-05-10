@@ -21,14 +21,15 @@ class Worker {
 
 public:
 
-    Worker(QVector<GeomNode> readNodes, double **readDistances, bool instanceType, int kParameter); // Costruttore
-    QLinkedList<QLinkedList<int> > work();  // Costruisce i risultati CAZZOMERDA: non rendo la distanza totale! >:( Da aggiungere.
+    Worker(Plane plane, int kParameter);
+    //Worker(QVector<GeomNode> readNodes, double **readDistances, bool instanceType, int kParameter); // Costruttore
+    QPair<double, QLinkedList<QLinkedList<int> > > work();  // Costruisce i risultati CAZZOMERDA: non rendo la distanza totale! >:( Da aggiungere.
 
 private:
 
     Plane instancePlane;        // Tutti i nodi
     QLinkedList<int> bigRoute;  // Route totale della prima fase
-    int pathLength;             // Distanza percorsa
+    double pathLength;             // Distanza percorsa
     int maxCapacity;            // Capacità mezzo
     QLinkedList<QLinkedList<int> > subRoutes;   // Lista delle subroutes
 

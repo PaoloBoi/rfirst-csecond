@@ -52,21 +52,6 @@ public:
     /** @brief Imposta a @em value (...). */
     void set_drop_time(int);
 
-    /** @brief Rende la coordinata @em x del deposito. */
-    //int get_depot_x_coord();
-
-    /** @brief Imposta a @em value la coordinata @em x del deposito. */
-    //void set_depot_x_coord(int);
-
-    /** @brief Rende la coordinata @em y del deposito. */
-    //int get_depot_y_coord();
-
-    /** @brief Imposta a @em value la coordinata @em y del deposito. */
-    //void set_depot_y_coord(int);
-
-    /** @brief Aggiunge il nodo @em node all'istanza. */
-    //void add_node(GeomNode);
-
     /** @brief Rende l'indice del deposito, all'interno della lista dei nodi. */
     int get_depot_id();
 
@@ -75,6 +60,8 @@ public:
 
     /** @brief Inizializza il piano che contiene i punti della rete. */
     void init_plane(QVector<GeomNode>, double **, bool);
+
+    Plane get_plane();
 
     /** @brief Stampa a video i dati contenuti nell'istanza. */
     void print_data();
@@ -90,8 +77,6 @@ private:
     int depot_id;
 
     Plane plane;    /**< Variabile che contiene la rappresentazione dei nodi della rete nel piano. */
-
-    //QList<GeomNode> nodes_list; /**< Nodi della rete (non comprende il deposito) */
 };
 
 #endif // INSTANCE_H
