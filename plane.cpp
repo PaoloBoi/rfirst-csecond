@@ -1,8 +1,6 @@
 #include <plane.h>
 #include <math.h>
 
-Plane::Plane() {}
-
 /**
  * @brief Costruttore
  *
@@ -16,8 +14,59 @@ Plane::Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceT
     this->nodes = readNodes;
 
 
-    for (int i=1; i<this->nodes.size(); i++){
-        this->activeNodes.append(i);
+    QVectorIterator<GeomNode> i(this->nodes);
+    while (i.hasNext())
+        this->activeNodes.append(i.next().get_id());
+}
+
+/**
+ * @brief Nodo a distanza minore.
+ *
+ * Dato l'ID di un nodo, rende l'ID del nodo più vicino e la distanza tra essi.
+ *
+ * @author Diego Marcia { gpimple@gmail.com }
+ */
+QPair<int, double> Plane::closest (int node){
+    QPair<int, double> min; // Il nodo più vicino e la distanza da quello ricevuto.
+
+    if (!this->nodes.empty()){  // Ci sono ancora nodi attivi?
+
+        double calcDist;
+
+        int minPos=0;     // Assumo che il più vicino sia il primo dei nodi attivi
+        double minDist;
+        if (this->symmetricInstance){
+            minDist = this->squared_distance(node, this->activeNodes.at(0));
+        } else {    // Caso asimmetrico
+            minDist = distances[node][0];
+        }
+
+        // Per tutti i nodi attivi...
+        for (int i=1; i<this->activeNodes.size(); i++){
+            if (this->symmetricInstance){
+                calcDist = squared_distance(node, this->activeNodes.at(i));   // ... Calcolo la distanza al quadrato dal nodo ricevuto
+                if (calcDist < minDist){    // Se ho trovato un nodo più vicino, aggiorno i riferimenti
+                    minDist = calcDist;
+                    minPos = i;
+                }
+            } else {    // Caso asimmetrico
+                calcDist = distances[node][this->activeNodes.at(i)];   // ... Ricavo la distanza esatta dal nodo ricevuto
+                if (calcDist < minDist){    // Se ho trovato un nodo più vicino, aggiorno i riferimenti
+                    minDist = calcDist;
+                    minPos = i;
+                }
+            }
+        }
+
+        if (this->symmetricInstance) minDist=sqrt(minDist);   // Distanza effettiva
+        min.first = this->activeNodes.takeAt(minPos);    // Rimuovo il nodo dalla lista degli attivi
+        min.second = minDist;
+
+        return min;
+    } else {
+        min.first = -1;
+        min.second = -1;
+        return min;
     }
 }
 
@@ -55,49 +104,6 @@ double Plane::squared_distance(int nodeA, int nodeB){
 }
 
 /**
- * @brief Nodo a distanza minore.
- *
- * Dato l'ID di un nodo, rende l'ID del nodo più vicino e la distanza tra essi.
- *
- * @author Diego Marcia { gpimple@gmail.com }
- */
-QPair<int, double> Plane::closest (int node){
-    QPair<int, double> min; // Il nodo più vicino e la distanza da quello ricevuto.
-
-    int minPos=0;     // Assumo che il più vicino sia il primo dei nodi attivi
-    double minDist;
-    double calcDist;
-
-    if (this->symmetricInstance){
-        minDist = this->squared_distance(node, this->activeNodes.at(0));
-    } else {    // Caso asimmetrico
-        minDist = distances[node][0];
-    }
-
-    for (int i=1; i<this->activeNodes.size(); i++){     // Per tutti i nodi attivi...
-        if (this->symmetricInstance){
-            calcDist = squared_distance(node, this->activeNodes.at(i));   // ... Calcolo la distanza al quadrato dal nodo ricevuto
-            if (calcDist < minDist){    // Se ho trovato un nodo più vicino, aggiorno i riferimenti
-                minDist = calcDist;
-                minPos = i;
-            }
-        } else {    // Caso asimmetrico
-            calcDist = distances[node][this->activeNodes.at(i)];   // ... Ricavo la distanza esatta dal nodo ricevuto
-            if (calcDist < minDist){    // Se ho trovato un nodo più vicino, aggiorno i riferimenti
-                minDist = calcDist;
-                minPos = i;
-            }
-        }
-    }
-
-    if (this->symmetricInstance) minDist=sqrt(minDist);   // Distanza effettiva
-    min.first = this->activeNodes.takeAt(minPos);    // Rimuovo il nodo dalla lista degli attivi
-    min.second = minDist;
-
-    return min;
-}
-
-/**
  * @brief Recupera un nodo
  *
  * Dato l'ID di un nodo, rende l'oggetto GeomNode associato.
@@ -113,7 +119,7 @@ GeomNode Plane::get_node(int whichNode){
     }
 }
 
-void Plane::print_data() {
 
-    for(int i = 0; i < nodes.size(); i++) { nodes[i].print_data(); }
+int Plane::get_nodes_number(){
+    return this->nodes.size();
 }

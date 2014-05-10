@@ -44,6 +44,9 @@ public:
     /** @brief Rende la capacità del nodo. */
     int get_capacity() const;
 
+    /** @brief Rende l'a capacità'ID del nodo. */
+    int get_id() const;
+
     /** @brief Stampa a video i dati. */
     void print_data();
 

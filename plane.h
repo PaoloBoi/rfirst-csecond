@@ -22,24 +22,22 @@ class Plane {
 
 public:
 
-    Plane();
     Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceType);
+
+    QPair<int, double> closest (int node);     // Overloading: primo approccio
+    // QPair<bool, QPair<int, double> > closest (int node, int filled);    // Overloading: secondo approccio
 
     double distance (int nodeA, int nodeB);
 
-    QPair<int, double> closest (int node);     // Overloading: primo approccio
-    QPair<bool, QPair<int, double> > closest (int node, int filled);    // Overloading: secondo approccio
-
     GeomNode get_node(int);
-
-    void print_data();
+    int get_nodes_number();
 
 
 private:
-    QVector<GeomNode> nodes;
-    double **distances;
-    QList<int> activeNodes;
-    bool symmetricInstance;
+    QVector<GeomNode> nodes;    // Tutti i nodi
+    double **distances;         // Matrice delle distanze
+    QList<int> activeNodes;     // Nodi da visitare
+    bool symmetricInstance;     // È un'istanza simmetrica?
 
     double squared_distance(int nodeA, int nodeB);
 };
