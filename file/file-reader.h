@@ -33,6 +33,9 @@ public:
     /** @brief Lancia la lettura del file. */
     void read_file(bool);
 
+    /** @brief Controllo sulla effettiva lettura del file. */
+    bool is_read();
+
     /** @brief Stampa i dati estratti a video. */
     void print_data();
 
@@ -44,9 +47,6 @@ private:
     /** @brief Esegue un controllo di esistenza per il file. */
     bool is_file_valid();
 
-    /** @brief Apre il file per la lettura. */
-    bool open_file();
-
     /** @brief Chiude il file. */
     bool close_file();
 
@@ -56,6 +56,7 @@ private:
     /** @brief Avvia la lettura dal file, istanza asimmetrica. */
     void read_asymm_file();
 
+    bool read_state;
     string file_path;
     ifstream in_file;
 

@@ -5,7 +5,10 @@
  *
  * Inizializza il path del file d'istanza, dal quale verranno lette le informazioni.
  */
-File_Reader::File_Reader(string f_path) { file_path = f_path; }
+File_Reader::File_Reader(string f_path) {
+    this->file_path = f_path;
+    this->read_state = false;
+}
 
 /**
  * A seconda dell'input, lancia la lettura dell'uno o dell'altro tipo di istanza.
@@ -14,7 +17,10 @@ File_Reader::File_Reader(string f_path) { file_path = f_path; }
  */
 void File_Reader::read_file(bool instanceType) {
 
-    if(open_file()) { // Apre il file
+    if(is_file_valid()) { // Apre il file
+        //if(open_file()) { // Apre il file
+
+        qDebug("File aperto");
 
         if(instanceType) { this->read_symm_file(); }
         else { this->read_asymm_file(); }
@@ -22,42 +28,37 @@ void File_Reader::read_file(bool instanceType) {
         /* Chiude il file */
         close_file();
 
+        this->read_state = true;
+
     } else { qErrnoWarning("Impossibile aprire il file"); }
 }
 
-/**
- * Stampa i dati estrapolati, richiamando la funzione di stampa dell'istanza @link SymmetricalInstance @endlink.
- */
-void File_Reader::print_data() { instance.print_data(); }
+/** @return TRUE se il file è stato letto, FALSE altrimenti. */
+bool File_Reader::is_read() { return read_state; }
 
-/**
- * @return L'istanza della struttura dati che contiene i dati estratti dal file.
- */
+/** Stampa i dati estrapolati, richiamando la funzione di stampa dell'istanza @link SymmetricalInstance @endlink. */
+void File_Reader::print_data() {
+    if(read_state) {
+        instance.print_data();
+    }
+    else { qWarning("Istanza non consistente..."); }
+}
+
+/** @return L'istanza della struttura dati che contiene i dati estratti dal file. */
 Instance File_Reader::get_instance() { return instance; }
 
 /**
+ * Il file viene aperto in sola lettura.
+ *
  * Lancia un controllo di validità sul file, tramite l'istanza di lettura @emph ifstream.
  *
  * @return TRUE se il file esiste ed è leggibile, FALSE altrimenti.
  */
 bool File_Reader::is_file_valid() {
 
-    return in_file.good();
-}
+    in_file.open(file_path.c_str(), std::ifstream::in);
 
-/**
- * Il file viene aperto in sola lettura.
- *
- * @return TRUE se il file è stato aperto correttamente, FALSE altrimenti.
- */
-bool File_Reader::open_file() {
-
-    if(is_file_valid()) {
-        in_file.open(file_path.c_str(), std::ifstream::in);
-        return true;
-    }
-
-    return false;
+    return !in_file.fail();
 }
 
 /**
