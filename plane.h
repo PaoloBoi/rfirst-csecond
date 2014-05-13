@@ -24,7 +24,7 @@ public:
 
     Plane() {}
 
-    Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceType);
+    Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceType, int dep_ID);
 
     QPair<int, double> closest (int node);     // Overloading: primo approccio
     // QPair<bool, QPair<int, double> > closest (int node, int filled);    // Overloading: secondo approccio
@@ -33,6 +33,8 @@ public:
 
     GeomNode get_node(int);
     int get_nodes_number();
+
+    bool is_active_nodes_empty() { return activeNodes.empty(); }
 
     void print_data();
 

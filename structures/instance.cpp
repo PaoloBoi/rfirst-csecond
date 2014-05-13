@@ -30,7 +30,7 @@ void Instance::set_depot_id(int value) { depot_id = value; }
  * @param instanceType Il tipo di istanza (TRUE se simmetrica, FALSE se assimmetrica).
  */
 void Instance::init_plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceType) {
-    plane = Plane(readNodes, readDistances, instanceType);
+    plane = Plane(readNodes, readDistances, instanceType, this->get_depot_id());
 }
 
 Plane Instance::get_plane() { return plane; }

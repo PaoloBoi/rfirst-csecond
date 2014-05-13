@@ -8,7 +8,7 @@
  *
  * @author Diego Marcia { gpimple@gmail.com }
  */
-Plane::Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceType){
+Plane::Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceType, int dep_ID){
     this->symmetricInstance = instanceType;
     this->distances = readDistances;
     this->nodes = readNodes;
@@ -17,6 +17,11 @@ Plane::Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceT
     QVectorIterator<GeomNode> i(this->nodes);
     while (i.hasNext())
         this->activeNodes.append(i.next().get_id());
+
+    // Elimino il nodo deposito
+    int j = this->activeNodes.lastIndexOf(dep_ID);
+    this->activeNodes.takeAt(j);
+
 }
 
 /**
@@ -58,7 +63,7 @@ QPair<int, double> Plane::closest (int node){
             }
         }
 
-        if (this->symmetricInstance) minDist=sqrt(minDist);   // Distanza effettiva
+        if (this->symmetricInstance) minDist = sqrt(minDist);   // Distanza effettiva
         min.first = this->activeNodes.takeAt(minPos);    // Rimuovo il nodo dalla lista degli attivi
         min.second = minDist;
 
