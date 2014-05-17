@@ -16,4 +16,5 @@ HEADERS += \
     structures/instance.h \
     structures/geom-node.h \
     plane.h \
-    worker.h
+    worker.h \
+    timer.h

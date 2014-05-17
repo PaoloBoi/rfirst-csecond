@@ -35,7 +35,7 @@ QPair<int, double> Plane::closest (int node){
         }
 
         // Per tutti i nodi attivi...
-        for (int i=1; i<this->activeNodes.size(); i++){
+        for (int i = 1; i< this->activeNodes.size(); i++){
             if (this->symmetricInstance){
                 calcDist = squared_distance(node, this->activeNodes.at(i));   // ... Calcolo la distanza al quadrato dal nodo ricevuto
                 if (calcDist < minDist){    // Se ho trovato un nodo più vicino, aggiorno i riferimenti

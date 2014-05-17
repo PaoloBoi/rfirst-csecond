@@ -21,8 +21,8 @@ Worker::Worker(Plane plane, int kParameter) {
  * Genera i risultati, a seconda del tipo di approccio selezionato (vedere documentazione).
  * Si appoggia alle funzioni di creazione della big route e delle sub-route.
  *
- * Mode = 0: Route First - Cluster Second" semplice.
- * Mode = 1: approccio "Route First - Cluster Second" iterato.
+ * Mode = 0: "Route First - Cluster Second" semplice.
+ * Mode = 1: "Route First - Cluster Second" iterato.
  *
  * @param dep_ID ID del nodo deposito.
  * @param mode Modalità di utilizzo (approccio alla soluzione).
@@ -45,7 +45,7 @@ void Worker::work(int dep_ID, int mode) {
         qDebug("Distanza percorsa nella Big Route: %lf", bigRoute.first);
 
         /** Genera le sub route. */
-        this->subRoutes = this->build_sub_routes(dep_ID);
+        this->subRoutes = this->build_sub_routes(dep_ID, this->bigRoute.second);
     }
 
     /* Mode 1: approccio "Route First - Cluster Second" iterato */
@@ -73,7 +73,7 @@ void Worker::work(int dep_ID, int mode) {
                 //qDebug("Distanza percorsa nella Big Route: %lf", thisBigRoute.first);
 
                 /* Calcola il set delle sub-route a partire dalla big route corrente */
-                thisSubRouteSet = this->build_sub_routes(dep_ID);
+                thisSubRouteSet = this->build_sub_routes(dep_ID, thisBigRoute.second);
 
                 /* Sceglie la big route ottima */
                 if(thisBigRoute.first < this->bigRoute.first) {
@@ -170,7 +170,6 @@ QPair<int, QLinkedList<int> > Worker::build_sub_route(QLinkedList<int> &bigRoute
     /* Variabili temporanee */
     int thisSubRouteRequest = 0, current = start, next, nextRequest;
     QLinkedList<int> thisSubRoute;
-    //QPair<int, QLinkedList<int> > result;
 
     thisSubRoute.append(dep_ID);    // Aggiunge il nodo deposito
     if(start != dep_ID) {           // Start diverso dal nodo deposito (Mode = 1) [ottimizzare]
@@ -220,14 +219,14 @@ QPair<int, QLinkedList<int> > Worker::build_sub_route(QLinkedList<int> &bigRoute
  * @param dep_ID ID del nodo deposito.
  * @return Coppia contenente: distanza percorsa (cumulativa), set di tutte le sub-route generate.
  */
-QPair<double, QLinkedList<QLinkedList<int> > > Worker::build_sub_routes (int dep_ID) {
+QPair<double, QLinkedList<QLinkedList<int> > > Worker::build_sub_routes (int dep_ID, QLinkedList<int> bigRoute) {
 
     /* Variabili temporanee */
     int startingNode;
     double thisLength = 0;
     QPair<int, QLinkedList<int> > tempSubroute;
     QLinkedList<QLinkedList<int> > subRouteSet;
-    QLinkedList<int> tempBigRoute = this->bigRoute.second;
+    QLinkedList<int> tempBigRoute = bigRoute;
 
     /* Estrae il primo nodo dalla big route (è il nodo deposito). */
     startingNode = tempBigRoute.takeFirst();

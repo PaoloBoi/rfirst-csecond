@@ -52,7 +52,7 @@ private:
     QPair<int, QLinkedList<int> > build_sub_route (QLinkedList<int> &bigRoute, int start, int dep_ID, double &length_acc);
 
     /** @brief Genera il set completo delle sub-routes. */
-    QPair<double, QLinkedList<QLinkedList<int> > > build_sub_routes(int dep_ID);
+    QPair<double, QLinkedList<QLinkedList<int> > > build_sub_routes(int dep_ID, QLinkedList<int> bigRoute);
 };
 
 #endif // WORKER_H
