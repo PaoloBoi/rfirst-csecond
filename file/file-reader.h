@@ -31,7 +31,7 @@ public:
     File_Reader(string f_path);
 
     /** @brief Lancia la lettura del file. */
-    void read_file(bool);
+    void read_file(bool instanceType);
 
     /** @brief Controllo sulla effettiva lettura del file. */
     bool is_read();
@@ -61,7 +61,6 @@ private:
     ifstream in_file;
 
     Instance instance;
-    //Plane thePlane;
 };
 
 #endif // FILEREADER_H

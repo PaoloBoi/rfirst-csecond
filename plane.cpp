@@ -2,31 +2,19 @@
 #include <math.h>
 
 /**
- * @brief Costruttore
- *
  * Inizializza il flag per le istanze simmetriche, la matrice delle distanze (usata per istanze asimmetriche), il vettore dei nodi e la lista dei nodi attivi.
  *
  * @author Diego Marcia { gpimple@gmail.com }
  */
 Plane::Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceType, int dep_ID){
-    this->symmetricInstance = instanceType;
+    this->symmetricInstance = instanceType; // Inizializza le informazioni di base
     this->distances = readDistances;
     this->nodes = readNodes;
 
-
-    QVectorIterator<GeomNode> i(this->nodes);
-    while (i.hasNext())
-        this->activeNodes.append(i.next().get_id());
-
-    // Elimino il nodo deposito
-    int j = this->activeNodes.lastIndexOf(dep_ID);
-    this->activeNodes.takeAt(j);
-
+    this->init_active_nodes(dep_ID);        // Inizializza la lista dei nodi attivi
 }
 
 /**
- * @brief Nodo a distanza minore.
- *
  * Dato l'ID di un nodo, rende l'ID del nodo più vicino e la distanza tra essi.
  *
  * @author Diego Marcia { gpimple@gmail.com }
@@ -38,7 +26,7 @@ QPair<int, double> Plane::closest (int node){
 
         double calcDist;
 
-        int minPos=0;     // Assumo che il più vicino sia il primo dei nodi attivi
+        int minPos = 0;     // Assumo che il più vicino sia il primo dei nodi attivi
         double minDist;
         if (this->symmetricInstance){
             minDist = this->squared_distance(node, this->activeNodes.at(0));
@@ -76,8 +64,6 @@ QPair<int, double> Plane::closest (int node){
 }
 
 /**
- * @brief Distanza tra due nodi
- *
  * Dati gli ID di due nodi, rende la distanza euclidea tra essi.
  *
  * @author Diego Marcia { gpimple@gmail.com }
@@ -95,8 +81,6 @@ double Plane::distance (int nodeA, int nodeB){
 }
 
 /**
- * @brief Distanza tra due nodi al quadrato
- *
  * Dati gli ID di due nodi, rende la distanza al quadrato. Utile per confrontare più distanze senza dover ricorrere alla funzione sqrt.
  *
  * @author Diego Marcia { gpimple@gmail.com }
@@ -109,8 +93,6 @@ double Plane::squared_distance(int nodeA, int nodeB){
 }
 
 /**
- * @brief Recupera un nodo
- *
  * Dato l'ID di un nodo, rende l'oggetto GeomNode associato.
  *
  * @author Diego Marcia { gpimple@gmail.com }
@@ -124,9 +106,20 @@ GeomNode Plane::get_node(int whichNode){
     }
 }
 
+/**
+ * La lista dei nodi attivi viene utilizzata nella costruzione delle route.
+ *
+ * @param dep_ID L'ID del nodo deposito.
+ */
+void Plane::init_active_nodes (int dep_ID) {
+    QVectorIterator<GeomNode> i(this->nodes);
+    while (i.hasNext()) {
+        this->activeNodes.append(i.next().get_id());
+    }
 
-int Plane::get_nodes_number(){
-    return this->nodes.size();
+    // Elimino il nodo deposito
+    int j = this->activeNodes.lastIndexOf(dep_ID);
+    this->activeNodes.takeAt(j);
 }
 
 void Plane::print_data() {
@@ -134,5 +127,4 @@ void Plane::print_data() {
     for(int i = 0; i < nodes.size(); i++) {
         cout << "Nodo " << i << ": " << nodes.at(i).get_x_coord() << " " << nodes.at(i).get_y_coord() << " " << nodes.at(i).get_capacity() << endl;
     }
-
 }
