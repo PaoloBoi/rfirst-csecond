@@ -98,22 +98,19 @@ void Worker::work(int dep_ID, int mode) {
         }
 
         //qDebug("Big Route migliore:");
-        //this->print_route(bestBigRoute.second);
-        //        qDebug("Costo della Big Route migliore: %lf", bestBigRoute.first);
+        //this->print_route(this->bigRoute.second, 0);
+        //        qDebug("Costo della Big Route migliore: %lf", this->bigRoute.first);
         //        qDebug("Costo della Sub route associata: %lf", bestBigRoute_SubLength);
 
         //        qDebug("----------");
 
-        //qDebug("Set di sub-route migliore:");
-        //this->print_route(bestBigRoute.second);
-        //        qDebug("Costo del Set di sub-route migliore: %lf", bestSubRouteSet.first);
-        //        qDebug("Costo della Big Route associata: %lf", bestSubRoute_BigLength);
+        //        qDebug("Costo del Set di sub-route migliore: %lf", this->subRoutes.first);
+        //        qDebug("Costo della Big Route associata: %lf", bestSubRoute_BiggerLength);
     }
 
     if(mode == 2) {
 
         while(!instancePlane.is_active_nodes_empty()) {
-
 
 
 
@@ -217,6 +214,49 @@ QPair<int, QLinkedList<int> > Worker::build_sub_route(QLinkedList<int> &bigRoute
             thisSubRoute.append(next);                                                  // Aggiungo il nodo estratto
             thisSubRouteRequest += this->instancePlane.get_node(next).get_capacity();   // Aggiorno la domanda della sub-route
             current = next;                                                             // Imposto il nodo estratto come corrente
+        }
+    }
+}
+
+QPair<int, QLinkedList<int> > Worker::build_sub_route(int start, int dep_ID, double &length_acc) {
+
+    /* Variabili temporanee */
+    int thisSubRouteRequest = 0;
+    QPair<bool, QPair<int, double> > next;
+    QLinkedList<int> thisSubRoute;
+
+    thisSubRoute.append(dep_ID);    // Aggiunge il nodo deposito
+    if(start != dep_ID) {           // Start diverso dal nodo deposito (Mode = 1) [ottimizzare]
+        thisSubRoute.append(start); // Aggiunge il primo nodo (è presente come argomento)
+        length_acc += this->instancePlane.distance(dep_ID, start);                  // Accumulo la distanza deposito-primo
+        thisSubRouteRequest += this->instancePlane.get_node(start).get_capacity();  // Aggiorno la richiesta della sub-route
+    }
+
+    /* Ciclo principale di esecuzione */
+    while(true){
+
+        //next = bigRoute.takeFirst(); // Estrae il primo nodo dalla route
+        //next = instancePlane.closest();
+
+        /* Non ci sono più nodi da visitare (condizione di uscita #1) */
+        if(next.second.first == -1) {
+            thisSubRoute.append(dep_ID);
+            length_acc += next.second.second;
+
+            return qMakePair(-1, thisSubRoute);
+        }
+        /* flag TRUE */
+        if(next.first) {
+            //if (bigRoute.empty()){
+            thisSubRoute.append(dep_ID);                                    // Aggiunge il deposito (ultimo)
+            //length_acc += this->instancePlane.distance(current, dep_ID);    // Accumula la distanza
+            length_acc += next.second.second;
+
+            return qMakePair(next.second.first, thisSubRoute);
+        } else {
+            thisSubRoute.append(next.second.first);
+            length_acc += next.second.second;
+            thisSubRouteRequest += this->instancePlane.get_node(next.second.first).get_capacity();
         }
     }
 }
