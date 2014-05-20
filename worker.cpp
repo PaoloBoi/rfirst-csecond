@@ -23,6 +23,7 @@ Worker::Worker(Plane plane, int kParameter) {
  *
  * Mode = 0: "Route First - Cluster Second" semplice.
  * Mode = 1: "Route First - Cluster Second" iterato.
+ * Mode = 2: "Route First - Cluster Second" con rinnovo.
  *
  * @param dep_ID ID del nodo deposito.
  * @param mode Modalità di utilizzo (approccio alla soluzione).

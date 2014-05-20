@@ -64,6 +64,73 @@ QPair<int, double> Plane::closest (int node){
 }
 
 /**
+ * Dato l'ID di un nodo, rende l'ID del nodo più vicino e la distanza tra essi (secondo approccio).
+ *
+ * @author Diego Marcia { gpimple@gmail.com }
+ */
+QPair<bool, QPair<int, double> > Plane::closest (int node, int filled, int maxCapacity){
+    QPair<int, double> min; // Il nodo più vicino e la distanza da quello ricevuto.
+    QPair<bool, QPair<int, double> > toBeReturned;
+
+    if (!this->nodes.empty()){  // Ci sono ancora nodi attivi?
+
+        double calcDist;
+
+        int minPos = 0;     // Assumo che il più vicino sia il primo dei nodi attivi
+        double minDist;
+        if (this->symmetricInstance){
+            minDist = this->squared_distance(node, this->activeNodes.at(0));
+        } else {    // Caso asimmetrico
+            minDist = distances[node][0];
+        }
+
+        // Per tutti i nodi attivi...
+        for (int i = 1; i< this->activeNodes.size(); i++){
+            if (this->symmetricInstance){
+                calcDist = squared_distance(node, this->activeNodes.at(i));   // ... Calcolo la distanza al quadrato dal nodo ricevuto
+                if (calcDist < minDist){    // Se ho trovato un nodo più vicino, aggiorno i riferimenti
+                    minDist = calcDist;
+                    minPos = i;
+                }
+            } else {    // Caso asimmetrico
+                calcDist = distances[node][this->activeNodes.at(i)];   // ... Ricavo la distanza esatta dal nodo ricevuto
+                if (calcDist < minDist){    // Se ho trovato un nodo più vicino, aggiorno i riferimenti
+                    minDist = calcDist;
+                    minPos = i;
+                }
+            }
+        }
+
+        if (this->symmetricInstance) minDist = sqrt(minDist);   // Distanza effettiva
+
+        if (this->get_node(this->activeNodes.at(minPos)).get_capacity() + filled > maxCapacity){    // Abbiamo sforato la capacità del mezzo
+            toBeReturned.first = true;      // Mi serve una nuova subroute
+
+            min.first = this->activeNodes.takeAt(this->closest(this->dep_ID).first);    // Nodo più vicino al deposito
+            if (this->symmetricInstance){
+                min.second = distance(node, this->dep_ID);   // Calcolo la distanza per tornare al deposito
+            } else {    // Caso asimmetrico
+                min.second = distances[node][this->dep_ID];   // Calcolo la distanza per tornare al deposito
+            }
+        } else {
+            toBeReturned.first = false;      // Non mi serve una nuova subroute
+            min.first = this->activeNodes.takeAt(minPos);    // Rimuovo il nodo dalla lista degli attivi
+            min.second = minDist;
+        }
+
+        toBeReturned.second = min;
+        return toBeReturned;
+
+    } else {
+        min.first = -1;
+        min.second = -1;
+        toBeReturned.first = false;
+        toBeReturned.second = min;
+        return toBeReturned;
+    }
+}
+
+/**
  * Dati gli ID di due nodi, rende la distanza euclidea tra essi.
  *
  * @author Diego Marcia { gpimple@gmail.com }
