@@ -111,11 +111,35 @@ void Worker::work(int dep_ID, int mode) {
 
     if(mode == 2) {
 
-        while(!instancePlane.is_active_nodes_empty()) {
+        qDebug("Op. Mode 2 started...");
 
+        QPair<bool, QPair<int, double> > first;
+        QLinkedList<QLinkedList<int> > set;
+        double length = 0;
+        int step = 0;
+        int subRouteRequest = 0;
 
+        first = this->instancePlane.closest(dep_ID, subRouteRequest, this->maxCapacity);
 
+        qDebug("First Node:");
+        cout << first.second.first << endl;
+
+        while(true) {
+
+            qDebug("Op. Mode 2 STEP: %d", ++step);
+
+            QPair<int, QLinkedList<int> > req = this->build_sub_route(first.second.first, dep_ID, length);
+            set.append(req.second);
+
+            if(req.first == -1) {
+                break;
+            }
         }
+
+        qDebug("");
+
+        //this->subRoutes.first = length;
+        //this->subRoutes.second = set;
     }
 
     qDebug("Work terminato...");
@@ -233,11 +257,15 @@ QPair<int, QLinkedList<int> > Worker::build_sub_route(int start, int dep_ID, dou
         thisSubRouteRequest += this->instancePlane.get_node(start).get_capacity();  // Aggiorno la richiesta della sub-route
     }
 
+    int step = 0;
+
     /* Ciclo principale di esecuzione */
     while(true){
 
+        qDebug("build_sub_route %d", ++step);
+
         //next = bigRoute.takeFirst(); // Estrae il primo nodo dalla route
-        //next = instancePlane.closest();
+        next = instancePlane.closest(start, thisSubRouteRequest, this->maxCapacity);
 
         /* Non ci sono più nodi da visitare (condizione di uscita #1) */
         if(next.second.first == -1) {

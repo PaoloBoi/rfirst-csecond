@@ -29,7 +29,7 @@ int main() {
         timer.stop_and_print();
 
         qDebug("Big route generata: ");
-        work.print_route(work.get_big_route(), 1);
+        work.print_route(work.get_big_route(), 0);
 
         qDebug("Distanza Big Route: %lf", work.get_big_route_length());
 
@@ -50,6 +50,7 @@ int main() {
 
         cout << "---------------" << endl;
         */
+
     }
 
     //timer.stop_and_print();
