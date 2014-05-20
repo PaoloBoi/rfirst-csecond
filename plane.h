@@ -29,6 +29,7 @@ public:
 
     /** @brief Identifica il nodo a distanza minore da quello in input. */
     QPair<int, double> closest (int node);     // Overloading: primo approccio
+    QPair<bool, QPair<int, double> > closest (int node, int filled, int maxCapacity);
     //QPair<bool, QPair<int, double> > closest (int node, int filled, int kParameter, int dep_ID);    // Overloading: secondo approccio
 
     /** @brief Calcola la distanza tra due nodi. */
@@ -52,6 +53,7 @@ private:
     double **distances;         // Matrice delle distanze
     QList<int> activeNodes;     // Nodi da visitare
     bool symmetricInstance;     // È un'istanza simmetrica?
+    int dep_ID;                 // Now the word of the Lord came to me, saying “I appointed you a prophet to the nations.”
 
     /** @brief Distanza tra due nodi al quadrato. */
     double squared_distance(int nodeA, int nodeB);

@@ -4,7 +4,7 @@
 
 const char * simmFilePath = "../rfirst-csecond/data/simm/vrpnc1.txt"; // Use TRUE
 const char * aSimmFilePath = "../rfirst-csecond/data/asimm/A034-02f.dat"; //Use FALSE
-const int op_mode = 1;
+const int op_mode = 2;
 
 using namespace std;
 
