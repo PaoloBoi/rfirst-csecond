@@ -35,7 +35,7 @@ public:
     double get_sub_routes_length() { return /*pathLength*/this->subRoutes.first; }
 
     /** @brief Stampa a video la route in input. */
-    void print_route(QLinkedList<int>);
+    void print_route(QLinkedList<int>, int mode);
 
 private:
 

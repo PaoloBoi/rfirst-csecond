@@ -110,6 +110,16 @@ void Worker::work(int dep_ID, int mode) {
         //        qDebug("Costo della Big Route associata: %lf", bestSubRoute_BigLength);
     }
 
+    if(mode == 2) {
+
+        while(!instancePlane.is_active_nodes_empty()) {
+
+
+
+
+        }
+    }
+
     qDebug("Work terminato...");
 }
 
@@ -242,13 +252,21 @@ QPair<double, QLinkedList<QLinkedList<int> > > Worker::build_sub_routes (int dep
     //qDebug("Costo del set di sub-route corrente: %lf", thisLength);
 
     return qMakePair(thisLength, subRouteSet);
-
 }
 
-void Worker::print_route(QLinkedList<int> route) {
+void Worker::print_route(QLinkedList<int> route, int mode) {
 
-    QLinkedList<int>::iterator it = route.begin();
-    cout << *it++;
-    for (; it != route.end(); ++it) { cout << " -> " << *it; }
-    cout << endl;
+    if(mode == 0) {
+        QLinkedList<int>::iterator it = route.begin();
+        cout << *it++;
+        for (; it != route.end(); ++it) { cout << " -> " << *it; }
+        cout << endl;
+    }
+
+    if(mode == 1) {
+        QLinkedList<int>::iterator it = route.begin();
+        //cout << *it++;
+        for (it = route.begin(); it != route.end(); ++it) { cout << *it << endl; }
+        //cout << endl;
+    }
 }
