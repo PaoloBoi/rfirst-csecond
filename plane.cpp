@@ -10,6 +10,7 @@ Plane::Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceT
     this->symmetricInstance = instanceType; // Inizializza le informazioni di base
     this->distances = readDistances;
     this->nodes = readNodes;
+    this->dep_ID = dep_ID;
 
     this->init_active_nodes(dep_ID);        // Inizializza la lista dei nodi attivi
 }
@@ -104,16 +105,18 @@ QPair<bool, QPair<int, double> > Plane::closest (int node, int filled, int maxCa
         if (this->symmetricInstance) minDist = sqrt(minDist);   // Distanza effettiva
 
         if (this->get_node(this->activeNodes.at(minPos)).get_capacity() + filled > maxCapacity){    // Abbiamo sforato la capacità del mezzo
-            toBeReturned.first = true;      // Mi serve una nuova subroute
+            toBeReturned.first = true;      // MI serve una nuova subroute
 
-            min.first = this->activeNodes.takeAt(this->closest(this->dep_ID).first);    // Nodo più vicino al deposito
+            min.first = this->activeNodes.takeAt(this->closest(this->dep_ID).first);    // Nodo più vicino al deposito (per la nuova s.r.)
+
             if (this->symmetricInstance){
-                min.second = distance(node, this->dep_ID);   // Calcolo la distanza per tornare al deposito
-            } else {    // Caso asimmetrico
-                min.second = distances[node][this->dep_ID];   // Calcolo la distanza per tornare al deposito
+                min.second = distance(node, this->dep_ID);   // Caso simmetrico: Calcolo la distanza per tornare al deposito
+            } else {
+                min.second = distances[node][this->dep_ID];   // Caso asimmetrico: Calcolo la distanza per tornare al deposito
             }
+
         } else {
-            toBeReturned.first = false;      // Non mi serve una nuova subroute
+            toBeReturned.first = false;      // NON MI serve una nuova subroute
             min.first = this->activeNodes.takeAt(minPos);    // Rimuovo il nodo dalla lista degli attivi
             min.second = minDist;
         }
