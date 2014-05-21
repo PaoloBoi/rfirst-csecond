@@ -2,7 +2,7 @@
 #include "worker.h"
 #include "timer.h"
 
-const char * simmFilePath = "../rfirst-csecond/data/simm/vrpnc1.txt"; // Use TRUE
+const char * simmFilePath = "../rfirst-csecond/data/simm/vrpnc14.txt"; // Use TRUE
 const char * aSimmFilePath = "../rfirst-csecond/data/asimm/A034-02f.dat"; //Use FALSE
 const int op_mode = 2;
 
@@ -28,10 +28,12 @@ int main() {
 
         timer.stop_and_print();
 
-        qDebug("Big route generata: ");
-        work.print_route(work.get_big_route(), 0);
+        //qDebug("Big route generata: ");
+        //work.print_route(work.get_big_route(), 0);
 
-        qDebug("Distanza Big Route: %lf", work.get_big_route_length());
+        //qDebug("Distanza Big Route: %lf", work.get_big_route_length());
+
+        //cout << work.get_sub_routes().size() << endl;
 
         qDebug("Numero di sub-route generate: %d", work.get_sub_routes().size());
 
@@ -50,7 +52,6 @@ int main() {
 
         cout << "---------------" << endl;
         */
-
     }
 
     //timer.stop_and_print();

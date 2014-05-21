@@ -23,7 +23,7 @@ Plane::Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceT
 QPair<int, double> Plane::closest (int node){
     QPair<int, double> min; // Il nodo più vicino e la distanza da quello ricevuto.
 
-    if (!this->nodes.empty()){  // Ci sono ancora nodi attivi?
+    //if (!this->nodes.empty()){  // Ci sono ancora nodi attivi?
 
         double calcDist;
 
@@ -57,11 +57,11 @@ QPair<int, double> Plane::closest (int node){
         min.second = minDist;
 
         return min;
-    } else {
+    /*} else {
         min.first = -1;
         min.second = -1;
         return min;
-    }
+    }*/
 }
 
 /**
@@ -73,7 +73,7 @@ QPair<bool, QPair<int, double> > Plane::closest (int node, int filled, int maxCa
     QPair<int, double> min; // Il nodo più vicino e la distanza da quello ricevuto.
     QPair<bool, QPair<int, double> > toBeReturned;
 
-    if (!this->nodes.empty()){  // Ci sono ancora nodi attivi?
+    if (!this->activeNodes.empty()){  // Ci sono ancora nodi attivi?
 
         double calcDist;
 
@@ -107,7 +107,8 @@ QPair<bool, QPair<int, double> > Plane::closest (int node, int filled, int maxCa
         if (this->get_node(this->activeNodes.at(minPos)).get_capacity() + filled > maxCapacity){    // Abbiamo sforato la capacità del mezzo
             toBeReturned.first = true;      // MI serve una nuova subroute
 
-            min.first = this->activeNodes.takeAt(this->closest(this->dep_ID).first);    // Nodo più vicino al deposito (per la nuova s.r.)
+            min.first = this->closest(this->dep_ID).first;    // Nodo più vicino al deposito (per la nuova s.r.)
+            //this->activeNodes.removeAt(this->activeNodes.lastIndexOf(min.first));
 
             if (this->symmetricInstance){
                 min.second = distance(node, this->dep_ID);   // Caso simmetrico: Calcolo la distanza per tornare al deposito
