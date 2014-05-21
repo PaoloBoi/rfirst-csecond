@@ -65,6 +65,7 @@ QPair<int, double> Plane::closest (int node){
 }
 
 /**
+ * Dato l'ID di un nodo, rende l'ID del nodo più vicino e la distanza tra essi (secondo approccio).
  *
  * @author Diego Marcia { gpimple@gmail.com }
  */
@@ -72,6 +73,7 @@ QPair<bool, QPair<int, double> > Plane::closest (int node, int filled, int maxCa
     QPair<int, double> min; // Il nodo più vicino e la distanza da quello ricevuto.
     QPair<bool, QPair<int, double> > toBeReturned;
 
+    if (!this->nodes.empty()){  // Ci sono ancora nodi attivi?
 
         double calcDist;
 
@@ -102,8 +104,10 @@ QPair<bool, QPair<int, double> > Plane::closest (int node, int filled, int maxCa
 
         if (this->symmetricInstance) minDist = sqrt(minDist);   // Distanza effettiva
 
+        if (this->get_node(this->activeNodes.at(minPos)).get_capacity() + filled > maxCapacity){    // Abbiamo sforato la capacità del mezzo
             toBeReturned.first = true;      // MI serve una nuova subroute
 
+            min.first = this->activeNodes.takeAt(this->closest(this->dep_ID).first);    // Nodo più vicino al deposito (per la nuova s.r.)
 
             if (this->symmetricInstance){
                 min.second = distance(node, this->dep_ID);   // Caso simmetrico: Calcolo la distanza per tornare al deposito
