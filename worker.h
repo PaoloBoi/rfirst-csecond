@@ -51,6 +51,9 @@ private:
     /** @brief Costruisce una singola sub-route. */
     QPair<int, QLinkedList<int> > build_sub_route (QLinkedList<int> &bigRoute, int start, int dep_ID, double &length_acc);
 
+    /** @brief Costruisce una singola sub-route. */
+    QPair<int, QLinkedList<int> > build_sub_route (int start, int dep_ID, double &length_acc);
+
     /** @brief Genera il set completo delle sub-routes. */
     QPair<double, QLinkedList<QLinkedList<int> > > build_sub_routes(int dep_ID, QLinkedList<int> bigRoute);
 };
