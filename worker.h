@@ -15,6 +15,7 @@ using namespace std;
  * Utilizza le funzionalità della classe Plane per generare le soluzioni.
  *
  * @author Diego Marcia { gpimple@gmail.com }
+ * @author Paolo Boi { paoloboi87@gmail.com }
  */
 
 class Worker {
@@ -26,13 +27,17 @@ public:
     /** @brief Costruisce i risultati. */
     void work(int dep_ID, int mode);  // Costruisce i risultati
 
+    /** @brief Restituisce la big route generata. */
     QLinkedList<int> get_big_route () { return this->bigRoute.second; }
 
+    /** @brief Restituisce la distanza percorsa nella big route. */
     double get_big_route_length () { return this->bigRoute.first; }
 
-    QLinkedList<QLinkedList<int > > get_sub_routes () { return this->subRoutes.second; }
+    /** @brief Restituisce l'insieme delle sub routes generato. */
+    QLinkedList<QPair<double, QLinkedList<int > > > get_sub_routes () { return this->subRoutes.second; }
 
-    double get_sub_routes_length() { return /*pathLength*/this->subRoutes.first; }
+    /** @brief Restituisce la distanza cumulata percorsa nel set di sub route. */
+    double get_sub_routes_length() { return this->subRoutes.first; }
 
     /** @brief Stampa a video la route in input. */
     void print_route(QLinkedList<int>, int mode);
@@ -41,21 +46,20 @@ private:
 
     Plane instancePlane;                        // Tutti i nodi
     QPair<double, QLinkedList<int> > bigRoute;  // Big Route (ottima) [distanza percorsa, route]
-    //double pathLength;                        // Distanza percorsa nel set di sub-route (somma)
     int maxCapacity;                            // Capacità del mezzo
-    QPair<double, QLinkedList<QLinkedList<int> > > subRoutes;   // Lista delle subroutes [distanza accumulata, routes]
+    QPair<double, QLinkedList<QPair<double, QLinkedList<int> > > > subRoutes;   // Lista delle subroutes [distanza accumulata, routes]
 
     /** @brief Costruisce la Big Route a partire dai dati dell'istanza. */
     QPair<double, QLinkedList<int> > build_big_route (int dep_ID, int start);
 
     /** @brief Costruisce una singola sub-route. */
-    QPair<int, QLinkedList<int> > build_sub_route (QLinkedList<int> &bigRoute, int start, int dep_ID, double &length_acc);
+    QPair<int, QPair<double, QLinkedList<int> > > build_sub_route(QLinkedList<int> &bigRoute, int start, int dep_ID);
 
     /** @brief Costruisce una singola sub-route. */
-    QPair<int, QLinkedList<int> > build_sub_route (int start, int dep_ID, double &length_acc);
+    QPair<int, QPair<double, QLinkedList<int> > > build_sub_route(int start, int dep_ID);
 
     /** @brief Genera il set completo delle sub-routes. */
-    QPair<double, QLinkedList<QLinkedList<int> > > build_sub_routes(int dep_ID, QLinkedList<int> bigRoute);
+    QPair<double, QLinkedList<QPair<double, QLinkedList<int> > > > build_sub_routes(int dep_ID, QLinkedList<int> bigRoute);
 };
 
 #endif // WORKER_H
