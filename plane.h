@@ -44,6 +44,7 @@ public:
     /** @brief Inizializza la lista dei nodi attivi. */
     void init_active_nodes (int dep_ID);
 
+    /** @brief Controlla gli elementi attivi. */
     bool is_active_nodes_empty() { return activeNodes.empty(); }
 
     void print_data();

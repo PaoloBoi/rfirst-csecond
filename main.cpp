@@ -39,6 +39,16 @@ int main() {
 
         qDebug("Lunghezza totale sub route: %lf", work.get_sub_routes_length());
         
+        QLinkedList<QPair<double, QLinkedList<int> > > subRoutes = work.get_sub_routes();
+
+        QLinkedList<QPair<double, QLinkedList<int> > >::iterator iter;
+
+        for(iter = subRoutes.begin(); iter != subRoutes.end(); ++iter) {
+            qDebug("%lf", (*iter).first);
+        }
+
+
+
         /* Stampa le singole distanze della big route */
         /*Plane myPlane = f_reader.get_instance().get_plane();
         QLinkedList<int> list = work.get_big_route();

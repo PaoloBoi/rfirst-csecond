@@ -23,45 +23,38 @@ Plane::Plane(QVector<GeomNode> readNodes, double **readDistances, bool instanceT
 QPair<int, double> Plane::closest (int node){
     QPair<int, double> min; // Il nodo più vicino e la distanza da quello ricevuto.
 
-    //if (!this->nodes.empty()){  // Ci sono ancora nodi attivi?
+    double calcDist;
 
-        double calcDist;
+    int minPos = 0;     // Assumo che il più vicino sia il primo dei nodi attivi
+    double minDist;
+    if (this->symmetricInstance){
+        minDist = this->squared_distance(node, this->activeNodes.at(0));
+    } else {    // Caso asimmetrico
+        minDist = distances[node][0];
+    }
 
-        int minPos = 0;     // Assumo che il più vicino sia il primo dei nodi attivi
-        double minDist;
+    // Per tutti i nodi attivi...
+    for (int i = 1; i< this->activeNodes.size(); i++){
         if (this->symmetricInstance){
-            minDist = this->squared_distance(node, this->activeNodes.at(0));
+            calcDist = squared_distance(node, this->activeNodes.at(i));   // ... Calcolo la distanza al quadrato dal nodo ricevuto
+            if (calcDist < minDist){    // Se ho trovato un nodo più vicino, aggiorno i riferimenti
+                minDist = calcDist;
+                minPos = i;
+            }
         } else {    // Caso asimmetrico
-            minDist = distances[node][0];
-        }
-
-        // Per tutti i nodi attivi...
-        for (int i = 1; i< this->activeNodes.size(); i++){
-            if (this->symmetricInstance){
-                calcDist = squared_distance(node, this->activeNodes.at(i));   // ... Calcolo la distanza al quadrato dal nodo ricevuto
-                if (calcDist < minDist){    // Se ho trovato un nodo più vicino, aggiorno i riferimenti
-                    minDist = calcDist;
-                    minPos = i;
-                }
-            } else {    // Caso asimmetrico
-                calcDist = distances[node][this->activeNodes.at(i)];   // ... Ricavo la distanza esatta dal nodo ricevuto
-                if (calcDist < minDist){    // Se ho trovato un nodo più vicino, aggiorno i riferimenti
-                    minDist = calcDist;
-                    minPos = i;
-                }
+            calcDist = distances[node][this->activeNodes.at(i)];   // ... Ricavo la distanza esatta dal nodo ricevuto
+            if (calcDist < minDist){    // Se ho trovato un nodo più vicino, aggiorno i riferimenti
+                minDist = calcDist;
+                minPos = i;
             }
         }
+    }
 
-        if (this->symmetricInstance) minDist = sqrt(minDist);   // Distanza effettiva
-        min.first = this->activeNodes.takeAt(minPos);    // Rimuovo il nodo dalla lista degli attivi
-        min.second = minDist;
+    if (this->symmetricInstance) minDist = sqrt(minDist);   // Distanza effettiva
+    min.first = this->activeNodes.takeAt(minPos);    // Rimuovo il nodo dalla lista degli attivi
+    min.second = minDist;
 
-        return min;
-    /*} else {
-        min.first = -1;
-        min.second = -1;
-        return min;
-    }*/
+    return min;
 }
 
 /**
@@ -108,7 +101,6 @@ QPair<bool, QPair<int, double> > Plane::closest (int node, int filled, int maxCa
             toBeReturned.first = true;      // MI serve una nuova subroute
 
             min.first = this->closest(this->dep_ID).first;    // Nodo più vicino al deposito (per la nuova s.r.)
-            //this->activeNodes.removeAt(this->activeNodes.lastIndexOf(min.first));
 
             if (this->symmetricInstance){
                 min.second = distance(node, this->dep_ID);   // Caso simmetrico: Calcolo la distanza per tornare al deposito
