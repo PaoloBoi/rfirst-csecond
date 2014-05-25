@@ -26,14 +26,14 @@ QPair<int, double> Plane::closest (int node){
     double calcDist;
 
     int minPos = 0;     // Assumo che il più vicino sia il primo dei nodi attivi
-    double minDist;
+    double minDist = 0;
     if (this->symmetricInstance){
         minDist = this->squared_distance(node, this->activeNodes.at(0));
     } else {    // Caso asimmetrico
-        minDist = distances[node][0];
+        minDist = distances[node][this->activeNodes.at(0)];
     }
 
-    // Per tutti i nodi attivi...
+    // Per tutti i nodi attivi... (esclude il primo perché è stato estratto all'inizio)
     for (int i = 1; i< this->activeNodes.size(); i++){
         if (this->symmetricInstance){
             calcDist = squared_distance(node, this->activeNodes.at(i));   // ... Calcolo la distanza al quadrato dal nodo ricevuto
@@ -75,7 +75,7 @@ QPair<bool, QPair<int, double> > Plane::closest (int node, int filled, int maxCa
         if (this->symmetricInstance){
             minDist = this->squared_distance(node, this->activeNodes.at(0));
         } else {    // Caso asimmetrico
-            minDist = distances[node][0];
+            minDist = distances[node][this->activeNodes.at(0)];
         }
 
         // Per tutti i nodi attivi...
@@ -115,6 +115,7 @@ QPair<bool, QPair<int, double> > Plane::closest (int node, int filled, int maxCa
         }
 
         toBeReturned.second = min;
+
         return toBeReturned;
 
     } else {
@@ -122,6 +123,7 @@ QPair<bool, QPair<int, double> > Plane::closest (int node, int filled, int maxCa
         min.second = -1;
         toBeReturned.first = false;
         toBeReturned.second = min;
+
         return toBeReturned;
     }
 }
@@ -132,6 +134,7 @@ QPair<bool, QPair<int, double> > Plane::closest (int node, int filled, int maxCa
  * @author Diego Marcia { gpimple@gmail.com }
  */
 double Plane::distance (int nodeA, int nodeB){
+
     if (this->symmetricInstance) {
 
         double x_dist = nodes.at(nodeA).get_x_coord() - nodes.at(nodeB).get_x_coord();
@@ -139,7 +142,8 @@ double Plane::distance (int nodeA, int nodeB){
 
         return sqrt((x_dist * x_dist) + (y_dist * y_dist));
     } else {    // Caso asimmetrico
-        return this->distances[nodeA][nodeB];
+        if(nodeA == nodeB) return 0.0;
+        else return this->distances[nodeA][nodeB];
     }
 }
 

@@ -21,11 +21,17 @@ using namespace std;
 class Worker {
 
 public:
+    /** @brief Costruttore predefinito. */
+    Worker();
+
     /** @brief Costruttore principale. */
     Worker(Plane plane, int kParameter);
 
     /** @brief Costruisce i risultati. */
     void work(int dep_ID, int mode);  // Costruisce i risultati
+
+    /** @brief Restituisce lo stato del lavoro. */
+    bool has_worked() { return this->status; }
 
     /** @brief Restituisce la big route generata. */
     QLinkedList<int> get_big_route () { return this->bigRoute.second; }
@@ -43,6 +49,8 @@ public:
     void print_route(QLinkedList<int>, int mode);
 
 private:
+
+    bool status;
 
     Plane instancePlane;                        // Tutti i nodi
     QPair<double, QLinkedList<int> > bigRoute;  // Big Route (ottima) [distanza percorsa, route]

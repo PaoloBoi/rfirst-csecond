@@ -33,6 +33,8 @@ Worker::Worker(Plane plane, int kParameter) {
  */
 void Worker::work(int dep_ID, int mode) {
 
+    this->status = false;
+
     qDebug("Work iniziato...");
 
     this->subRoutes.first = 0;
@@ -98,13 +100,13 @@ void Worker::work(int dep_ID, int mode) {
 
         //qDebug("Big Route migliore:");
         //this->print_route(this->bigRoute.second, 0);
-        //        qDebug("Costo della Big Route migliore: %lf", this->bigRoute.first);
-        //        qDebug("Costo della Sub route associata: %lf", bestBigRoute_SubLength);
+        //qDebug("Costo della Big Route migliore: %lf", this->bigRoute.first);
+        //qDebug("Costo della Sub route associata: %lf", bestBigRoute_SubLength);
 
-        //        qDebug("----------");
+        //qDebug("----------");
 
-        //        qDebug("Costo del Set di sub-route migliore: %lf", this->subRoutes.first);
-        //        qDebug("Costo della Big Route associata: %lf", bestSubRoute_BiggerLength);
+        //qDebug("Costo del Set di sub-route migliore: %lf", this->subRoutes.first);
+        //qDebug("Costo della Big Route associata: %lf", bestSubRoute_BiggerLength);
     }
 
     /* Mode 2: approccio con "Clustering diretto" */
@@ -131,6 +133,8 @@ void Worker::work(int dep_ID, int mode) {
     }
 
     qDebug("Work terminato...");
+
+    this->status = true;
 }
 
 /**
@@ -189,9 +193,11 @@ QPair<int, QPair<double, QLinkedList<int> > > Worker::build_sub_route(QLinkedLis
     /* Variabili temporanee */
     int thisSubRouteRequest = 0, current = start, next, nextRequest;
     QPair<double, QLinkedList<int> > thisSubRoute;
+
     thisSubRoute.first = 0;
 
     thisSubRoute.second.append(dep_ID);    // Aggiunge il nodo deposito
+
     if(start != dep_ID) {           // Start diverso dal nodo deposito (Mode = 1) [ottimizzare]
         thisSubRoute.second.append(start); // Aggiunge il primo nodo (è presente come argomento)
 
@@ -246,7 +252,7 @@ QPair<int, QPair<double, QLinkedList<int> > > Worker::build_sub_route(QLinkedLis
 QPair<int, QPair<double, QLinkedList<int> > > Worker::build_sub_route(int start, int dep_ID) {
 
     /* Variabili temporanee */
-    int thisSubRouteRequest = 0;
+    int thisSubRouteRequest = 0, current = start;
     QPair<bool, QPair<int, double> > next;
     QPair<double, QLinkedList<int> > thisSubRoute;
     thisSubRoute.first = 0;
@@ -261,17 +267,19 @@ QPair<int, QPair<double, QLinkedList<int> > > Worker::build_sub_route(int start,
     /* Ciclo principale di esecuzione */
     while(true){
 
-        // Estrae il primo nodo dalla route
-        next = instancePlane.closest(start, thisSubRouteRequest, this->maxCapacity);
+        /* Estrae il primo nodo dalla route */
+        next = instancePlane.closest(current, thisSubRouteRequest, this->maxCapacity);
 
         /* Non ci sono più nodi da visitare (condizione di uscita #1) */
         if(next.second.first == -1) {
             thisSubRoute.second.append(dep_ID);
 
-            thisSubRoute.first += next.second.second;
+            thisSubRoute.first += this->instancePlane.distance(current, dep_ID);
 
             return qMakePair(-1, thisSubRoute);
         }
+
+        current = next.second.first;
 
         /* flag TRUE */
         if(next.first) { // Sforo il mezzo
@@ -319,8 +327,6 @@ QPair<double, QLinkedList<QPair<double, QLinkedList<int> > > > Worker::build_sub
         thisLength += tempSubroute.second.first;    // Accumula la sitanza
         startingNode = tempSubroute.first;          // Estrae il nodo da cui partirà la sub-route successiva
     }
-
-    //qDebug("Costo del set di sub-route corrente: %lf", thisLength);
 
     return qMakePair(thisLength, subRouteSet);
 }

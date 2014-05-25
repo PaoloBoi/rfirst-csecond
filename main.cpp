@@ -2,69 +2,44 @@
 #include "worker.h"
 #include "timer.h"
 
-const char * simmFilePath = "../rfirst-csecond/data/simm/vrpnc14.txt"; // Use TRUE
-const char * aSimmFilePath = "../rfirst-csecond/data/asimm/A034-02f.dat"; //Use FALSE
-const int op_mode = 2;
+const char * simmFilePath = "../rfirst-csecond/data/simm/vrpnc2.txt"; // Use TRUE
+const char * aSimmFilePath = "../rfirst-csecond/data/asimm/A071-03f.dat"; //Use FALSE
+const int op_mode = 0;
 
 using namespace std;
 
 int main() {
 
     Timer timer("Tempo di esecuzione");
-    //timer.start();
 
-    File_Reader f_reader(simmFilePath);
+    //File_Reader f_reader(simmFilePath);
+    //f_reader.read_file(true);
 
-    f_reader.read_file(true);
+    File_Reader f_reader(aSimmFilePath);
+    f_reader.read_file(false);
 
-    //f_reader.print_data();
-
+    /* Se il file è stato letto */
     if(f_reader.is_read()) {
 
         timer.start();
 
+        /* Esegue il calcolo */
         Worker work (f_reader.get_instance().get_plane(), f_reader.get_instance().get_vehicle_capacity());
         work.work(f_reader.get_instance().get_depot_id(), op_mode);
 
         timer.stop_and_print();
 
-        //qDebug("Big route generata: ");
-        //work.print_route(work.get_big_route(), 0);
+        if(work.has_worked()) {
 
-        //qDebug("Distanza Big Route: %lf", work.get_big_route_length());
+            //QPair<double, QLinkedList<int> > thisBigRoute = work.get_big_route();
 
-        //cout << work.get_sub_routes().size() << endl;
+            if(op_mode != 2) qDebug("Distanza big route: %lf", work.get_big_route_length());
 
-        qDebug("Numero di sub-route generate: %d", work.get_sub_routes().size());
+            qDebug("Sub Route generate: %d", work.get_sub_routes().size());
 
-        qDebug("Lunghezza totale sub route: %lf", work.get_sub_routes_length());
-        
-        QLinkedList<QPair<double, QLinkedList<int> > > subRoutes = work.get_sub_routes();
-
-        QLinkedList<QPair<double, QLinkedList<int> > >::iterator iter;
-
-        for(iter = subRoutes.begin(); iter != subRoutes.end(); ++iter) {
-            qDebug("%lf", (*iter).first);
+            qDebug("Distanza percorsa nelle sub route: %lf", work.get_sub_routes_length());
         }
-
-
-
-        /* Stampa le singole distanze della big route */
-        /*Plane myPlane = f_reader.get_instance().get_plane();
-        QLinkedList<int> list = work.get_big_route();
-
-        QLinkedList<int>::iterator it = list.begin();
-        int prev = *it++;
-        for (; it != list.end(); ++it) {
-            cout << myPlane.distance(prev, *it) << endl;
-            prev = *it;
-        }
-
-        cout << "---------------" << endl;
-        */
     }
-
-    //timer.stop_and_print();
 
     return 0;
 }

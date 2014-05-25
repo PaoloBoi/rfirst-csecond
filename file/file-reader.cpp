@@ -165,8 +165,8 @@ void File_Reader::read_asymm_file() {
 
         for(j = 0; j < matrix_dim; j++) {
             in_file >> a;
-            if(i == j) matrix[i][j] = 0;
-            else matrix[i][j] = a;
+            /*if(i == j) matrix[i][j] = 0;
+            else */matrix[i][j] = a;
             //cout << a << " ";
         }
     }
