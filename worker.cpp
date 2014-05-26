@@ -1,5 +1,5 @@
-#include "worker.h"
 #include <math.h>
+#include "worker.h"
 
 /**
  * Istanzia l'oggetto Worker, che viene utilizzato per la costruzione dei risultati.

@@ -7,10 +7,20 @@ NearestNeighbour::NearestNeighbour() {
  * istanza simmetrica = TRUE
  * istanza asimmetrica = FALSE
  */
-NearestNeighbour::NearestNeighbour(string filePath, bool instanceType, int opMode) {
+NearestNeighbour::NearestNeighbour(string filePath, int instanceType, int opMode) {
 
     this->fileReader = new File_Reader(filePath);
-    this->instanceType = instanceType;
+    switch (instanceType) {
+    case 0:
+        this->instanceType = true;
+        break;
+
+    case 1:
+        this->instanceType = false;
+        break;
+    }
+
+    //this->instanceType = instanceType;
     this->opMode = opMode;
 
     this->timer = new Timer("Tempo di esecuzione");

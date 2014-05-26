@@ -9,7 +9,7 @@ class NearestNeighbour {
 
 public:
     NearestNeighbour();
-    NearestNeighbour(string filePath, bool instanceType, int opMode);
+    NearestNeighbour(string filePath, int instanceType, int opMode);
 
     void exec();
 
