@@ -4,12 +4,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-//#include <cstring>
-//#include <stdio.h>
 
-#include <structures/instance.h>
-#include <structures/geom-node.h>
-#include <plane.h>
+#include "structures/instance.h"
+#include "structures/geom-node.h"
+#include "structures/plane.h"
 
 using namespace std;
 

@@ -1,5 +1,6 @@
-#include <plane.h>
 #include <math.h>
+
+#include "structures/plane.h"
 
 /**
  * Inizializza il flag per le istanze simmetriche, la matrice delle distanze (usata per istanze asimmetriche), il vettore dei nodi e la lista dei nodi attivi.

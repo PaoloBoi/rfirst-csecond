@@ -8,13 +8,13 @@ SOURCES += main.cpp \
     file/file-reader.cpp \
     structures/instance.cpp \
     structures/geom-node.cpp \
-    plane.cpp \
+    structures/plane.cpp \
     worker.cpp
 
 HEADERS += \
     file/file-reader.h \
     structures/instance.h \
     structures/geom-node.h \
-    plane.h \
+    structures/plane.h \
     worker.h \
     timer.h

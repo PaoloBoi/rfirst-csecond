@@ -2,12 +2,10 @@
 #define INSTANCE_H
 
 #include <iostream>
-
 #include <QList>
 
-#include <structures/geom-node.h>
-
-#include <plane.h>
+#include "structures/geom-node.h"
+#include "structures/plane.h"
 
 using namespace std;
 

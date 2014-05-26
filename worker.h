@@ -3,7 +3,7 @@
 
 #include <QLinkedList>
 #include <QPair>
-#include <plane.h>
+#include "structures/plane.h"
 
 using namespace std;
 
