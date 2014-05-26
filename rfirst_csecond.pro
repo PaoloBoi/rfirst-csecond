@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     structures/instance.cpp \
     structures/geom-node.cpp \
     structures/plane.cpp \
-    worker.cpp
+    worker.cpp \
+    nearestneighbour.cpp
 
 HEADERS += \
     file/file-reader.h \
@@ -17,4 +18,5 @@ HEADERS += \
     structures/geom-node.h \
     structures/plane.h \
     worker.h \
-    timer.h
+    timer.h \
+    nearestneighbour.h

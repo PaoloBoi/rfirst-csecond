@@ -24,7 +24,11 @@ using namespace std;
 class File_Reader {
 
 public:
-    //File_Reader();
+    /** @brief Costruttore di default. */
+    File_Reader();
+
+    //~File_Reader();
+
     /** @brief Costruttore principale della classe. */
     File_Reader(string f_path);
 
