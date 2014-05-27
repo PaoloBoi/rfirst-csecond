@@ -14,14 +14,14 @@ File_Writer::File_Writer(string filePath) {
 /**
  * Scrive i dati sul file di output.
  */
-void File_Writer::write_file() {
+void File_Writer::write_file(QString header, QString body) {
 
     if(this->open_file()) {
 
         qDebug("File aperto in scrittura...");
 
-        this->out_file << "test" << endl;
-        this->out_file << "test 2" << endl;
+        this->out_file << header.toStdString()/* << endl*/;
+        this->out_file << body.toStdString()/* << endl*/;
 
         this->close_file();
 

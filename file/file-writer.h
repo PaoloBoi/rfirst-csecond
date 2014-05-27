@@ -28,7 +28,7 @@ public:
     File_Writer(string filePath);
 
     /** @brief Avvia la scrittura del file. */
-    void write_file();
+    void write_file(QString header, QString body);
 
     /** @brief Ritorna lo stato della scrittura su file. */
     bool is_writed() { return this->is_writed(); }

@@ -2,6 +2,7 @@
 #define NEARESTNEIGHBOUR_H
 
 #include "file/file-reader.h"
+#include "file/file-writer.h"
 #include "worker.h"
 #include "timer.h"
 
@@ -17,6 +18,7 @@ public:
 
 private:
     File_Reader *fileReader;
+    File_Writer *fileWriter;
     Worker *work;
 
     Timer *timer;
@@ -26,6 +28,7 @@ private:
 
     void read_file();
     void start_work();
+    void write_file();
 };
 
 #endif // NEARESTNEIGHBOUR_H
