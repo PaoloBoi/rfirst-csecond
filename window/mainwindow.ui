@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>640</width>
-    <height>480</height>
-   </rect>
-  </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
     <horstretch>0</horstretch>
@@ -56,9 +48,9 @@
      <property name="geometry">
       <rect>
        <x>11</x>
-       <y>19</y>
-       <width>121</width>
-       <height>31</height>
+       <y>29</y>
+       <width>141</width>
+       <height>21</height>
       </rect>
      </property>
      <property name="font">
@@ -76,9 +68,9 @@
      <property name="geometry">
       <rect>
        <x>5</x>
-       <y>40</y>
+       <y>50</y>
        <width>611</width>
-       <height>51</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -93,10 +85,10 @@
     <widget class="QToolButton" name="selectInputButton">
      <property name="geometry">
       <rect>
-       <x>370</x>
+       <x>409</x>
        <y>100</y>
-       <width>241</width>
-       <height>31</height>
+       <width>201</width>
+       <height>30</height>
       </rect>
      </property>
      <property name="text">
@@ -172,7 +164,7 @@
      </item>
      <item>
       <property name="text">
-       <string>Asimettrica</string>
+       <string>Asimmetrica</string>
       </property>
      </item>
     </widget>
@@ -237,7 +229,7 @@
       <x>10</x>
       <y>279</y>
       <width>621</width>
-      <height>81</height>
+      <height>71</height>
      </rect>
     </property>
     <property name="font">
@@ -254,15 +246,108 @@
     <widget class="QToolButton" name="startWorkButton">
      <property name="geometry">
       <rect>
-       <x>16</x>
+       <x>15</x>
        <y>30</y>
        <width>141</width>
-       <height>23</height>
+       <height>30</height>
       </rect>
      </property>
      <property name="text">
       <string>Avvia</string>
      </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="outputBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>359</y>
+      <width>621</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Courier</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="title">
+     <string>Output</string>
+    </property>
+    <widget class="QToolButton" name="toolButton">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>170</y>
+       <width>140</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Scrivi</string>
+     </property>
+    </widget>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>29</y>
+       <width>601</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="sameFolderTab">
+      <attribute name="title">
+       <string>Stessa cartella</string>
+      </attribute>
+      <widget class="QTextBrowser" name="textBrowser">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>581</width>
+         <height>51</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>0</y>
+         <width>101</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Courier</family>
+         <italic>true</italic>
+        </font>
+       </property>
+       <property name="text">
+        <string>Output:</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="customOutputTab">
+      <attribute name="title">
+       <string>Pers. output</string>
+      </attribute>
+     </widget>
     </widget>
    </widget>
   </widget>

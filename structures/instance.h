@@ -17,6 +17,7 @@ using namespace std;
  * Include le variabili per la memorizzazione dei dati globali, delle informazioni sul punto di deposito e una lista per la gestione dei nodi.
  * Il singolo nodo è gestito attraverso la struttura @link GeomNode @endlink.
  *
+ * @author Diego Marcia { gpimple@gmail.com }
  * @author Paolo Boi { paoloboi87@gmail.com }
  */
 

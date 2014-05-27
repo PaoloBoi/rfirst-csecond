@@ -12,6 +12,7 @@ using namespace std;
  *
  * Include le variabili per la memorizzazione delle coordinate cartesiane e della capacità.
  *
+ * @author Diego Marcia { gpimple@gmail.com }
  * @author Paolo Boi { paoloboi87@gmail.com }
  */
 

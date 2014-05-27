@@ -16,6 +16,7 @@ using namespace std;
  * Permette di accedere alle proprietà dei nodi ed alle relaizoni tra essi.
  *
  * @author Diego Marcia { gpimple@gmail.com }
+ * @author Paolo Boi { paoloboi87@gmail.com }
  */
 
 class Plane {

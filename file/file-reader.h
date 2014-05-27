@@ -18,9 +18,9 @@ using namespace std;
  *
  * Il contenuto viene estratto dal file, e poi memorizzato nell struttura [], delegata alla memorizzazione dei dati.
  *
+ * @author Diego Marcia { gpimple@gmail.com }
  * @author Paolo Boi { paoloboi87@gmail.com }
  */
-
 class File_Reader {
 
 public:
@@ -35,7 +35,7 @@ public:
     /** @brief Lancia la lettura del file. */
     void read_file(bool instanceType);
 
-    /** @brief Controllo sulla effettiva lettura del file. */
+    /** @brief Ritorna lo stato della lettura. */
     bool is_read();
 
     /** @brief Stampa i dati estratti a video. */

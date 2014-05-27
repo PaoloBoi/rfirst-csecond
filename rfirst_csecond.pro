@@ -9,6 +9,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 SOURCES += main.cpp \
     file/file-reader.cpp \
+    file/file-writer.cpp \
     structures/instance.cpp \
     structures/geom-node.cpp \
     structures/plane.cpp \
@@ -18,6 +19,7 @@ SOURCES += main.cpp \
 
 HEADERS += \
     file/file-reader.h \
+    file/file-writer.h \
     structures/instance.h \
     structures/geom-node.h \
     structures/plane.h \
