@@ -1,5 +1,6 @@
 #include <math.h>
 #include "worker.h"
+#include <QString>
 
 /**
  * Istanzia l'oggetto Worker, che viene utilizzato per la costruzione dei risultati.
@@ -346,4 +347,35 @@ void Worker::print_route(QLinkedList<int> route, int mode) {
         for (it = route.begin(); it != route.end(); ++it) { cout << *it << endl; }
         //cout << endl;
     }
+}
+
+QString Worker::make_QString_header(float time){
+    QString outputStr = "";
+
+    outputStr.append(QString::number(this->maxCapacity)).append(" ");
+    outputStr.append(QString::number(this->subRoutes.second.size())).append(" ");
+    outputStr.append(QString::number(this->subRoutes.first)).append(" ");
+    outputStr.append(QString::number(time)).append("\n");
+
+    return outputStr;
+}
+
+QString Worker::sub_routes_to_QString(){
+    QLinkedList<QPair<double, QLinkedList<int> > > iterSubRoutes = this->subRoutes.second;
+    QPair<double, QLinkedList<int> > accum;
+
+    QString outputStr = "";
+
+    while (!iterSubRoutes.empty()){
+        accum = iterSubRoutes.takeFirst();
+        outputStr.append(QString::number(accum.first));
+
+        int i;
+        foreach (i, accum.second)
+            outputStr.append(" ").append(QString::number(i));
+
+        outputStr.append("\n");
+    }
+
+    return outputStr;
 }

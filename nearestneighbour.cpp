@@ -47,6 +47,9 @@ void NearestNeighbour::exec() {
         qDebug("Sub Route generate: %d", this->work->get_sub_routes().size());
 
         qDebug("Distanza percorsa nelle sub route: %lf", this->work->get_sub_routes_length());
+
+        //qDebug(work->make_QString_header(timer->delay()).toUtf8());
+        //qDebug(work->sub_routes_to_QString().toLatin1());
     }
 }
 

@@ -48,6 +48,14 @@ public:
     /** @brief Stampa a video la route in input. */
     void print_route(QLinkedList<int>, int mode);
 
+    /** @brief Restituisce le distanze percorse dalle singole subroutes e le subroutes stesse. */
+    QString sub_routes_to_QString();
+
+    /** @brief Restituisce le informazioni generali sul risultato. */
+    QString make_QString_header(float time);
+
+    int get_maxCapacity(){return this->maxCapacity;}
+
 private:
 
     bool status;

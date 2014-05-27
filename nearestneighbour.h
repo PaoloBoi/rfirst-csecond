@@ -5,6 +5,8 @@
 #include "worker.h"
 #include "timer.h"
 
+using namespace std;
+
 class NearestNeighbour {
 
 public:
