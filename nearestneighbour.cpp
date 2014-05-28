@@ -51,7 +51,7 @@ void NearestNeighbour::exec() {
         //qDebug(work->make_QString_header(timer->delay()).toUtf8());
         //qDebug(work->sub_routes_to_QString().toLatin1());
 
-        this->write_file();
+        //this->write_file();
     }
 }
 
@@ -64,9 +64,10 @@ void NearestNeighbour::start_work() {
     this->work->work(this->fileReader->get_instance().get_depot_id(), this->opMode);
 }
 
-void NearestNeighbour::write_file() {
+void NearestNeighbour::write_file(QString path) {
     //if(this->work->has_worked()) {
-        this->fileWriter = new File_Writer("/Users/paolo/Desktop/out.txt");
-        this->fileWriter->write_file(this->work->make_QString_header(this->timer->delay()), this->work->sub_routes_to_QString());
+    //this->fileWriter = new File_Writer("/Users/paolo/Desktop/out.txt");
+    this->fileWriter = new File_Writer(path.toStdString());
+    this->fileWriter->write_file(this->work->make_QString_header(this->timer->delay()), this->work->sub_routes_to_QString());
     //}
 }

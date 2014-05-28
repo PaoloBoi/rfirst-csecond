@@ -1,6 +1,22 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#ifdef _WIN64
+#define OS "win"
+#elif _WIN32
+#define OS "win"
+#elif __APPLE__
+#define OS "unix"
+#elif __linux
+#define OS "unix"
+#elif __unix // all unices not caught above
+#define OS "unix"
+#elif __posix
+#define OS "unix"
+#endif
+
+#include <stdio.h>
+#include <QDebug>
 #include <QFileDialog>
 #include <QTextBrowser>
 #include <QMainWindow>
@@ -26,6 +42,8 @@ public slots:
 
     void on_startWorkButton_clicked();
 
+    void on_writeOutputButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -33,7 +51,10 @@ private:
 
     NearestNeighbour *nB;
 
-    QString fileName;
+    QString inputFileName;
+    QString outputPath;
+
+    QString gen_outputFileName (void);
 
 };
 

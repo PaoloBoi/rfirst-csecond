@@ -15,6 +15,7 @@ public:
     NearestNeighbour(string filePath, int instanceType, int opMode);
 
     void exec();
+    void write_file(QString path);
 
 private:
     File_Reader *fileReader;
@@ -28,7 +29,6 @@ private:
 
     void read_file();
     void start_work();
-    void write_file();
 };
 
 #endif // NEARESTNEIGHBOUR_H
