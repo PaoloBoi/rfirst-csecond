@@ -11,7 +11,6 @@ SOURCES += main.cpp \
     file/file-reader.cpp \
     file/file-writer.cpp \
     structures/instance.cpp \
-    structures/geom-node.cpp \
     structures/plane.cpp \
     worker.cpp \
     nearestneighbour.cpp \
