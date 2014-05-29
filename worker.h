@@ -17,7 +17,6 @@ using namespace std;
  * @author Diego Marcia { gpimple@gmail.com }
  * @author Paolo Boi { paoloboi87@gmail.com }
  */
-
 class Worker {
 
 public:

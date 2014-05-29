@@ -71,8 +71,6 @@ private:
     int max_route_time;   /**< Tempo massimo di attività del mezzo */
     int drop_time;
 
-    //int depot_x_coord;  /**< Coordinate del punto di deposito. */
-    //int depot_y_coord;
     int depot_id;
 
     Plane plane;    /**< Variabile che contiene la rappresentazione dei nodi della rete nel piano. */

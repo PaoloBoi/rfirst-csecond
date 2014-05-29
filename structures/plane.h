@@ -30,8 +30,7 @@ public:
 
     /** @brief Identifica il nodo a distanza minore da quello in input. */
     QPair<int, double> closest (int node);     // Overloading: primo approccio
-    QPair<bool, QPair<int, double> > closest (int node, int filled, int maxCapacity);
-    //QPair<bool, QPair<int, double> > closest (int node, int filled, int kParameter, int dep_ID);    // Overloading: secondo approccio
+    QPair<bool, QPair<int, double> > closest (int node, int filled, int maxCapacity); // Overloading: secondo approccio
 
     /** @brief Calcola la distanza tra due nodi. */
     double distance (int nodeA, int nodeB);

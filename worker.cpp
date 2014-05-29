@@ -1,6 +1,6 @@
 #include <math.h>
-#include "worker.h"
 #include <QString>
+#include "worker.h"
 
 /**
  * Istanzia l'oggetto Worker, che viene utilizzato per la costruzione dei risultati.
@@ -73,9 +73,6 @@ void Worker::work(int dep_ID, int mode) {
                 /* Calcola la big route, partendo dal nodo corrente */
                 thisBigRoute = this->build_big_route(dep_ID, instancePlane.get_node(i).get_id());
 
-                //qDebug("Nodi nella Big Route: %d", thisBigRoute.second.size()); // Stampa di debug
-                //qDebug("Distanza percorsa nella Big Route: %lf", thisBigRoute.first);
-
                 /* Calcola il set delle sub-route a partire dalla big route corrente */
                 thisSubRouteSet = this->build_sub_routes(dep_ID, thisBigRoute.second);
 
@@ -92,22 +89,8 @@ void Worker::work(int dep_ID, int mode) {
                 }
 
                 instancePlane.init_active_nodes(dep_ID); // Azzero i nodi attivi nel Plane
-
-                //qDebug("This length: %lf", thisSubRouteSet.first); // Stampa di debug
-                //qDebug("Best length: %lf", bestSubRouteSet.first);
-                //qDebug("---------------------------");
             }
         }
-
-        //qDebug("Big Route migliore:");
-        //this->print_route(this->bigRoute.second, 0);
-        //qDebug("Costo della Big Route migliore: %lf", this->bigRoute.first);
-        //qDebug("Costo della Sub route associata: %lf", bestBigRoute_SubLength);
-
-        //qDebug("----------");
-
-        //qDebug("Costo del Set di sub-route migliore: %lf", this->subRoutes.first);
-        //qDebug("Costo della Big Route associata: %lf", bestSubRoute_BiggerLength);
     }
 
     /* Mode 2: approccio con "Clustering diretto" */

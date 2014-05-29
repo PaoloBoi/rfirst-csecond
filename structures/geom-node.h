@@ -37,19 +37,25 @@ public:
     //~GeomNode() {}
 
     /** @brief Rende la coordinata x del nodo. */
-    int get_x_coord() const;
+    int get_x_coord() const { return x_coord; }
 
     /** @brief Rende la coordinata y del nodo. */
-    int get_y_coord() const;
+    int get_y_coord() const { return y_coord; }
 
     /** @brief Rende la capacità del nodo. */
-    int get_capacity() const;
+    int get_capacity() const { return capacity; }
 
     /** @brief Rende l'a capacità'ID del nodo. */
-    int get_id() const;
+    int get_id() const { return id; }
 
     /** @brief Stampa a video i dati. */
-    void print_data();
+    void print_data() { cout << "node " << id << ": " << x_coord << " " << y_coord << " " << capacity << endl; }
+
+
+
+
+
+
 
 private:
 
